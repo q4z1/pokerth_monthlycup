@@ -1,0 +1,68 @@
+body{
+
+}
+
+.logo{
+	padding-bottom: 15px;
+}
+
+#maincol{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.footer{
+	background-color: #f0f0f0;
+	margin-top: -20px;
+	padding-bottom: 10px;
+}
+#top-link-block{
+	z-index: 500;
+}
+
+#top-link-block.affix-top {
+    position: absolute; /* allows it to "slide" up into view */
+    bottom: -82px;
+    right: 10px;
+}
+#top-link-block.affix {
+    position: fixed; /* keeps it on the bottom once in view */
+    bottom: 18px;
+    right: 10px;
+}
+
+div.uploadform .row{
+	margin: 5px 0px;
+	line-height: 32px;
+	vertical-align: middle;
+}
+
+#modal table{
+	border: 1px solid #999;
+	width: 100%;
+}
+
+#modal td{
+	padding: 0px 5px;
+}
+
+#modal tr.head{
+	border-bottom: 1px solid #999;
+}
+
+#modal tr.light{
+	background-color: #efefef;
+}
+
+#modal tr.dark{
+	background-color: #f6f6f6;
+}
+
+table.awards button{
+	margin-bottom: 5px;
+	width: 90px;
+}
+
+.awrdname{
+	font-weight: bold;
+}
