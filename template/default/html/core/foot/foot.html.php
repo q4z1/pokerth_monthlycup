@@ -39,10 +39,11 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2 text-center">
       <p>
-        This site was built using <a href="http://jquery.com">jQuery</a>,
-        <a href="http://getbootstrap.com/">Bootstrap</a>,
-        <a href="http://malsup.com/jquery/form/">jQuery Form Plugin</a>,
-        <a href="http://plugins.krajee.com/file-input">bootstrap-fileinput</a>
+        This site was built using:<br />
+        <a href="http://jquery.com" target="_blank">jQuery</a>,
+        <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>,
+        <a href="http://malsup.com/jquery/form/" target="_blank">jQuery Form Plugin</a>,
+        <a href="http://plugins.krajee.com/file-input" target="_blank">bootstrap-fileinput</a>
       </p>
     </div>
   </div>
