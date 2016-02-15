@@ -66,3 +66,11 @@ table.awards button{
 .awrdname{
 	font-weight: bold;
 }
+
+th.avatar, td.avatar{
+	width: 130px;
+}
+
+td.avatar img{
+	width: 120px;
+}
