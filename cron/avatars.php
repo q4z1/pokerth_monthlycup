@@ -38,11 +38,27 @@ $players = $cls::get_all_entries();
 foreach($players as $player){
   $url = "http://www.poker-heroes.com/profile.html?user=" . urlencode($player->playername);
   $html = file_get_contents($url);
-  echo "\nresponse=\n--------\n$html\n-------\n";
-  break;
+	$aP = strpos($html, '<img src="http://avatar.poker-heroes.com/web/', 0);
+  if($aP !== false){
+		$aP += 10;
+		$eP = strpos($html, '"', $aP);
+		$img_url = substr($html, $aP,($eP-$aP));
+		$mP = strrpos($img_url, ".") +1;
+		$suffix = substr($img_url, $mP);
+		if($suffix == "jpg"){
+			$suffix = "jpeg";
+		}
+		$mime = "image/$suffix";
+		$img = file_get_contents($img_url);
+		$player->avatar = addslashes($img);
+		$player->avatar_mime = $mime;
+		$player->save();
+		echo "* fetched avatar from " . $player->playername . "\n";
+	}else{
+		echo "* image for " .$player->playername . " NOT found.\n";
+	}
+
 }
-
-
 
 /****************************/
 

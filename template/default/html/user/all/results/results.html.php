@@ -43,20 +43,19 @@ $cup_dates = array(
     <div class="row">
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold1st&month=<?=$i?>" alt="Gold 1st" />
+        <br />
+        <strong><?=$top3[$i][0]->playername?></strong>
       </div>
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold2nd&month=<?=$i?>" alt="Gold 2nd" />
+        <br />
+        <strong><?=$top3[$i][1]->playername?></strong>
       </div>
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold3rd&month=<?=$i?>" alt="Gold 3rd" />
+        <br />
+        <strong><?=$top3[$i][2]->playername?></strong>
       </div>
-    </div>
-    <div class="row">
-      <?php foreach($top3[$i] as $player): ?>
-      <div class="col-md-4 text-center">
-        <strong><?=$player->playername?></strong>
-      </div>
-      <?php endforeach; ?>
     </div>
   </div>
 </div>

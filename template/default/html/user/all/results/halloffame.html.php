@@ -26,7 +26,13 @@ $plyrs = app::$content['ranking'];
         <?php foreach($plyrs as $i => $plyr): ?>
         <tr>
           <td><?=($i+1)?></td>
-          <td>&nbsp;</td>
+          <td>
+            <?php if(!is_null($plyr->avatar_mime) && $plyr->avatar_mime != ""): ?>
+            <?='<img style="width: 120px" src="data:'.$plyr->avatar_mime.';base64,'.base64_encode(stripslashes($plyr->avatar)).'" alt="Avatar" />';?>
+            <?php else: ?>
+            &nbsp;
+            <?php endif; ?>
+          </td>
           <td><?=$plyr->playername?></td>
           <td><?=$plyr->points?></td>
           <td>
