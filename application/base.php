@@ -213,7 +213,7 @@ class base
 		view::set_special("inc", "browser/inc/inc.html");
 		if(self::$session == "visitor")
 		{
-			if(self::$controller != "main_results"){
+			if(self::$controller != "main_results" && self::$controller != "main_signup"){
 				view::set_col("maincol", "html/login/login.html");
 			}
 			

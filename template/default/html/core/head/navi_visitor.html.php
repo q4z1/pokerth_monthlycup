@@ -22,6 +22,7 @@
         <li><a href="/main/results/points/">Cup Ranking Points</a></li>
 			</ul>
 		</li>
+		<li><a href="/main/signup">Registration</a></li>
 	</ul>
 </div>
 

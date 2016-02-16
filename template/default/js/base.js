@@ -49,6 +49,8 @@ $(window).load
 						offset: {top:100}
 				});
 		}
+		
+
 	}
 );
 

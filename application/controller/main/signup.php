@@ -31,8 +31,16 @@ class controller_main_signup extends controller_main_base
 		{
 			$this->{app::$param[0]}();
 		}
-    else{
-      $this->series();
+    else
+		{
+      $this->show_signup();
     }
 		$this->generate_html_output();
 	}
+	
+	public function show_signup()
+	{
+		app::$content['months'] = $this->months;
+		view::set_col("maincol", "html/user/all/signup/form.html");
+	}
+}

@@ -169,3 +169,14 @@ CREATE TABLE IF NOT EXISTS `upload2016` (
 -- Daten für Tabelle `upload2016`
 --
 
+--
+-- Tabellenstruktur für Tabelle `signup2016`
+--
+
+CREATE TABLE  `monthlycup`.`signup2016` (
+`signup2016_id` INT( 8 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`month` INT( 2 ) NOT NULL ,
+`playername` INT NOT NULL ,
+`date` DATETIME NOT NULL ,
+`ip` VARCHAR( 16 ) NOT NULL
+) ENGINE = MYISAM ;
