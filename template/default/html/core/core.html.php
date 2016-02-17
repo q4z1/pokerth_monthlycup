@@ -14,7 +14,7 @@
 		<?php require(view::get_special("inc"))?>
 	</head>
 	<body>
-		<div id="base">
+		<div id="base" class="container-fluid">
 			<div id="notice"></div>
 			<div class="head">
 				<?php for($i=0; $i < view::num_col('head'); $i++): ?>
