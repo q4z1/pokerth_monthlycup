@@ -62,7 +62,7 @@ class model_signup2016 extends model_base
 	 *
 	 * @return Object
 	 */
-	public static function get_signup2016_by_playername($playername)
+	public static function get_entry_by_playername($playername)
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
 		return data_entry::get_by_filter

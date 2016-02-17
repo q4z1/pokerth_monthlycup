@@ -38,6 +38,7 @@
 				<li><a href="/admin/award/edit/">Assign / Edit</a></li>
 			</ul>
 		</li>
+		<li><a href="/admin/signup/">Signups</a></li>
 		<li><a href="/main/logout/">Logout</a></li>
 	</ul>
 </div>

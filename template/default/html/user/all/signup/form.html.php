@@ -6,7 +6,7 @@
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-left form-group">
-		<form name="singup" id="signup" action="<?=cfg::$web_root . 'ajax/signup'?>" method="post">
+		<form name="singup" id="signup" action="<?=cfg::$web_root . 'ajax/signup/'?>" method="post">
 		<fieldset>
 			<legend class="text-primary">Registration for <?=date("F, Y")?></legend>
       <div class="row">

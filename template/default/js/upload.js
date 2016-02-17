@@ -212,26 +212,3 @@ function validate_final() {
 			).done(function(data){showModal(data)});
 		});
 }
-
-function showModal(html){
-	if ($('form#final').length > 0) {
-    $('form#final').trigger('reset');
-  }
-	else if ($('form#firstround').length > 0) {
-    $('form#firstround').trigger('reset');
-  }
-	
-	if ($('#amodal').length > 0) {
-			$('#amodal').remove();
-	}
-	if ($('#modal').length > 0) {
-			$('#modal').remove();
-	}
-	$('.modal-backdrop').remove();
-	
-	$("body").append(html);
-	$('#amodal').modal();
-	window.setTimeout(function(){
-		$('#amodal').modal("hide");
-		}, hideNoticeTime);
-}
