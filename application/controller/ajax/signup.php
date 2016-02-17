@@ -65,6 +65,28 @@ class controller_ajax_signup extends controller_ajax_base
     app::$content['modal']["content"] = "Thank you <strong>" . htmlentities(app::$request["playername"]) . "</strong> - you have registered!";
   }
 	
+	public function validate()
+	{
+			view::set_special("ajax", "browser/ajax/modal.html");
+
+			$id = app::$request['id'];
+
+      $cls = "model_signup" . date("Y");
+      $sup = $cls::get_entry_by_id($id);
+      if(is_null($sup)){
+				app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
+				app::$content['modal']["content"] = "A Signupd with id $id not found!";
+				return;
+      }
+
+			// validate player      
+      $sup->valid = 1;
+			$sup->save();
+			
+			app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";
+			app::$content['modal']["content"] = "The Signup with id $id has been accepted!";
+	}
+	
 	
 	public function delete()
 	{

@@ -43,4 +43,13 @@ class controller_main_signup extends controller_main_base
 		app::$content['months'] = $this->months;
 		view::set_col("maincol", "html/user/all/signup/form.html");
 	}
+	
+	public function show(){
+		app::$content['months'] = $this->months;
+		
+		view::set_col("maincol", "html/user/all/signup/list.html");
+		$cls = "model_signup" . date("Y");
+		$list = $cls::get_public_valid_entries_by_month(intval(date("m")));
+		app::$content['signups'] = $list;
+	}
 }

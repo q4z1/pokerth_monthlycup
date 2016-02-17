@@ -12,13 +12,14 @@ $list = app::$content['signups'];
 </div>
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <table class="table table-hover table-bordered table-striped">
+    <table class="table table-hover table-bordered table-striped signups">
       <thead>
         <tr>
 					<th>ID</th>
           <th>Date</th>
           <th>Player</th>
           <th>IP</th>
+					<th>Accepted</th>
 					<th>Action</th>
         </tr>
       </thead>
@@ -31,14 +32,18 @@ $list = app::$content['signups'];
 					<td><?=$sup->date?></td>
 					<td><?=$sup->playername?></td>
 					<td><?=$sup->ip?></td>
-					<td>
+					<td><?=($sup->valid==1)?'Yes':'No'?></td>
+					<td class="text-center">
 						<button class="btn btn-danger removesup" type="submit" name="removesup" __sup_id__="<?=$sup->$sid?>">Remove</button>
+						<?php if($sup->valid != 1): ?>
+						<br /><button class="btn btn-success validatesup" type="submit" name="validatesup" __sup_id__="<?=$sup->$sid?>">Accept</button>
+						<?php endif; ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>
 				<?php else: ?>
 				<tr>
-					<td colspan="5" class="text-center text-info">No Signups found!</td>
+					<td colspan="6" class="text-center text-info">No Signups found!</td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

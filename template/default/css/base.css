@@ -58,7 +58,7 @@ div.uploadform .row{
 	background-color: #f6f6f6;
 }
 
-table.awards button{
+table.awards button, table.signups button{
 	margin-bottom: 5px;
 	width: 90px;
 }

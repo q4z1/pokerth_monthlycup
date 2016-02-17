@@ -51,10 +51,26 @@ class model_signup2016 extends model_base
 			(
 				'month' => intval($month)
 			),
-			$single = false
+			$single = false,
+			$order_by = array("field" => "date", "direction", "desc")
 		);
 	}
-
+	
+	public static function get_public_valid_entries_by_month($month)
+	{
+		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($signup2016_id) betreten.");
+		return data_entry::get_by_filter
+		(
+			$table = 'signup2016',
+			$filter = array
+			(
+				'month' => intval($month),
+				'valid' => 1
+			),
+			$single = false,
+			$order_by = array("field" => "date", "direction", "desc")
+		);
+	}
 	/*
 	 * get_signup2016_by_playername()
 	 *

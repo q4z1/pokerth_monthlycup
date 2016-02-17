@@ -50,7 +50,7 @@ $(window).load
 				});
 		}
 		
-		// short signup/registration form click handler
+		// short signup/registration handling because its public
 		if ($('form#signup').length > 0) {
       $('button#submit').click(function(event){
 				event.preventDefault();
@@ -72,8 +72,6 @@ $(window).load
     }
 	}
 );
-
-
 
 function delete_signup(id) {
 	if ($('#modal').length > 0) {

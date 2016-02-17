@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `controllerinc` (
   `filename` varchar(64) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`controllerinc_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Controller Includes' AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Controller Includes' AUTO_INCREMENT=11 ;
 
 --
 -- Daten für Tabelle `controllerinc`
@@ -125,7 +125,8 @@ INSERT INTO `controllerinc` (`controllerinc_id`, `template`, `controller`, `type
 (5, 'default', 'admin_award', 'js', 'fileinput.min', 1),
 (7, 'default', 'admin_award', 'css', 'fileinput.min', 1),
 (8, 'default', 'admin_award', 'js', 'jquery.form.min', 1),
-(9, 'default', 'admin_award', 'js', 'award', 1);
+(9, 'default', 'admin_award', 'js', 'award', 1),
+(10, 'default', 'admin_signup', 'js', 'signup', 1);
 
 -- --------------------------------------------------------
 
@@ -173,10 +174,12 @@ CREATE TABLE IF NOT EXISTS `upload2016` (
 -- Tabellenstruktur für Tabelle `signup2016`
 --
 
-CREATE TABLE  `monthlycup`.`signup2016` (
-`signup2016_id` INT( 8 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-`month` INT( 2 ) NOT NULL ,
-`playername` INT NOT NULL ,
-`date` DATETIME NOT NULL ,
-`ip` VARCHAR( 16 ) NOT NULL
-) ENGINE = MYISAM ;
+CREATE TABLE IF NOT EXISTS `signup2016` (
+  `signup2016_id` int(8) NOT NULL AUTO_INCREMENT,
+  `month` int(2) NOT NULL,
+  `playername` varchar(64) NOT NULL,
+  `date` datetime NOT NULL,
+  `ip` varchar(16) NOT NULL,
+  `valid` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`signup2016_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
