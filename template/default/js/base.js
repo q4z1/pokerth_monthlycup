@@ -62,49 +62,9 @@ $(window).load
 				).done(function(data){showModal(data)});
 			});
     }
-		
-		if ($('.removesup').length > 0) {
-      $('.removesup').each(function(i,item){
-        $(item).click(function(event){
-          delete_signup($(this).attr('__sup_id__'));
-        });
-      });
-    }
 	}
 );
 
-function delete_signup(id) {
-	if ($('#modal').length > 0) {
-    	$('#modal').remove();
-      $('.modal-backdrop').remove();
-  }
-	var modal = "<div id='modal' class='modal fade' role='dialog'>"
-		+ "<div class='modal-dialog modal-lg'><div class='modal-content'>"
-		+ "<div class='modal-body'>"
-		+ "Are you sure to delete singup id " + id + "</div><div class='modal-footer'>"
-		+ "<button type='button' class='btn btn-danger'"
-		+ " data-dismiss='modal' id='cancel'>Cancel</button>"
-		+ "<button type='button' class='btn btn-success'"
-		+ " data-dismiss='modal' id='remove'>Delete</button>"
-		+ "</div></div></div>";
-		$(".middle").append(modal);
-		$('#modal').modal();
-		
-		$('button#cancel').click(function(){
-			$('button#remove').unbind('click');
-		});
-		
-		$('button#remove').click(function(){
-			$('button#cancel').unbind('click');
-			$.post(
-				"/ajax/signup/delete",
-				{ id: id}
-			).done(function(data){
-        showModal(data);
-        $('button[__sup_id__='+id+']').parent().parent().remove();
-      });
-		});
-}
 
 function fetch_notice()
 {

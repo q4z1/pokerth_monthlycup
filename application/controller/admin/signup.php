@@ -33,5 +33,15 @@ class controller_admin_signup extends controller_admin_base
 		$list = $cls::get_entries_by_month(intval(date("m")));
 		app::$content['signups'] = $list;
   }
+	
+	public function randomizer(){
+		view::set_col("maincol", "html/user/admin/signup/randomizer.html");
+		$cls = "model_signup" . date("Y");
+		$list = $cls::get_public_valid_entries_by_month(intval(date("m")));
+		if(count($list) > 0){
+			shuffle($list);
+		}
+		app::$content['signups'] = $list;
+	}
 
 }
