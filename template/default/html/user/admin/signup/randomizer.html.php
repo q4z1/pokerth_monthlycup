@@ -15,8 +15,11 @@ $ts = time();
   <div class="col-md-6 col-md-offset-3">
 				<?php if(count($list) > 0): ?>
         <pre class="text-left">
+<?php $i=1; ?>
 <?php foreach($list as $sup): ?>
-<?=$sup->playername."\n"?>
+<?=$sup->playername?>
+<?=($i<(count($list)))?"\n":""?>
+<?php $i++; ?>
 <?php endforeach; ?>
         </pre>
 				<?php else: ?>
