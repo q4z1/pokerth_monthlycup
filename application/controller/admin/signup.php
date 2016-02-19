@@ -38,7 +38,13 @@ class controller_admin_signup extends controller_admin_base
 		view::set_col("maincol", "html/user/admin/signup/randomizer.html");
 		$cls = "model_signup" . date("Y");
 		$list = $cls::get_public_valid_entries_by_month(intval(date("m")));
+		app::$content['subs'] = array();
 		if(count($list) > 0){
+			if(count($list) >= 90){
+				// extract substitutes and splice array
+				app::$content['subs'] = array_splice($list, 90);
+				$list = array_splice($list, 0, 90);
+			}
 			shuffle($list);
 		}
 		app::$content['signups'] = $list;
