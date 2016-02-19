@@ -2,22 +2,12 @@
  * base.js
  *
  */
-var logoutTimeout = null;
-var logoutPeriodVal = 300000; // 5 minutes
-var noticeInterval = null;
-var noticePeriodVal = 15000 // 15 seconds
 var hideNoticeTime = 3000; // 3 seconds
-var olPeriod = null;
+
 $(window).load
 (
 	function()
 	{
-		fetch_notice();
-		if ($('.login').length == 0)
-		{
-			noticeInterval = setInterval("fetch_notice()", noticePeriodVal);
-		}
-		
 		$('#backtop').click(function(event){
 			event.preventDefault();
 			$('html,body').animate({scrollTop:0},'slow');
@@ -64,79 +54,6 @@ $(window).load
     }
 	}
 );
-
-
-function fetch_notice()
-{
-	$('#notice').html();
-	$.get('/ajax/notice', function(data){render_notice(data);});
-}
-
-function render_notice(notice)
-{
-	/*
-	if (notice == 'none')
-	{
-		$('#notice').css('display', 'none');
-		$('#notice').html();
-	}
-	else if (notice == "stop")
-	{
-		$('#notice').css('display', 'none');
-		$('#notice').html();
-		// clear all timeouts and Intervals
-		clearTimeout(logoutTimeout);
-		//clearInterval(noticeInterval);
-	}
-	else
-	{
-		$('#notice').html(notice);
-		$('#notice').css('display', 'block');
-		setTimeout("hide_notice()", hideNoticeTime); // 3 Sekunde
-	}
-	*/
-}
-
-function hide_notice()
-{
-	$('#notice').css('display', 'none');
-	$('#notice').html();
-}
-
-
-function reload_page()
-{
-	window.location.reload();
-}
-
-/**
- * automatical logout()
- */
-function logout()
-{
-	window.open("/main/logout", "_self");
-}
-
-function clearLogoutTimer()
-{
-	clearTimeout(logoutTimeout);
-	logoutTimeout = setTimeout("logout()", logoutPeriodVal);
-}
-
-
-function processPing(data)
-{
-	if (data == "stop")
-	{
-		clearInterval(sessionInterval);
-		clearTimeout(logoutTimeout);
-		clearInterval(olPeriod);
-	}
-	else if (data == "admin")
-	{
-		clearTimeout(logoutTimeout);
-	}
-}
 
 function showModal(html){
 	if ($('form#final').length > 0) {

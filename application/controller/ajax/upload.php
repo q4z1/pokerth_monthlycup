@@ -6,59 +6,7 @@ class controller_ajax_upload extends controller_ajax_base
 {
 	protected $output_type;
 
-	protected $points = array(
-		"first" => array(
-			1 => 13,
-			2 => 10,
-			3 => 8,
-			4 => 7,
-			5 => 6,
-			6 => 5,
-			7 => 4,
-			8 => 3,
-			9 => 2,
-			10 => 1
-		),
-		
-		"final" => array(
-			"bronze" => array(
-				1 => 16,
-				2 => 11,
-				3 => 8,
-				4 => 6,
-				5 => 5,
-				6 => 4,
-				7 => 3,
-				8 => 2,
-				9 => 1,
-				10 => 0
-			),
-			"silver" => array(
-				1 => 24,
-				2 => 18,
-				3 => 14,
-				4 => 11,
-				5 => 9,
-				6 => 7,
-				7 => 5,
-				8 => 3,
-				9 => 2,
-				10 => 1
-			),
-			"gold" => array(
-				1 => 36,
-				2 => 26,
-				3 => 22,
-				4 => 17,
-				5 => 13,
-				6 => 10,
-				7 => 7,
-				8 => 5,
-				9 => 3,
-				10 => 1
-			)
-		)
-	);
+	protected $points;
 	
 	protected  $months = array(
 		"01" => "January",
@@ -78,6 +26,7 @@ class controller_ajax_upload extends controller_ajax_base
 	public function __construct()
 	{
 		$this->output_type = "ajax";
+		$this->points = json_decode(app::$settings['points']);
 	}
 
 	public function run()
@@ -149,7 +98,7 @@ class controller_ajax_upload extends controller_ajax_base
 				$ul->month = $imonth;
 				$ul->playername = $players[$i];
 				$ul->position = $i;
-				$ul->points = $this->points["first"][$i];
+				$ul->points = $this->points->first->$i;
 				$ul->save();
 			}
 			app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";
@@ -210,7 +159,7 @@ class controller_ajax_upload extends controller_ajax_base
 				$ul->month = $imonth;
 				$ul->playername = $players[$i];
 				$ul->position = $i;
-				$ul->points = $this->points["final"][$table][$i];
+				$ul->points = $this->points->final->$table->$i;
 				$ul->save();
 			}
 			app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";

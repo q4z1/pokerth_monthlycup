@@ -6,13 +6,8 @@
 
 $top3 = app::$content["top3"];
 
-$forum_links = array(
-  1 => "http://www.pokerth.net/community/cup-series-2016/12798-january-cup-2016.html",
-);
-
-$cup_dates = array(
-  1 => "Saturday, January 30th 2016",
-);
+$cup_dates = json_decode(app::$settings["dates"]);
+$forum_links = json_decode(app::$settings["forum_links"]);
 
 ?>
 <div class="row">
@@ -27,10 +22,10 @@ $cup_dates = array(
     <h4 class="text-success"><?=date("F", strtotime(date("Y-$i-01")));?> Cup</h4>
   </div>
   <div class="col-md-6 col-md-offset-3 text-center">
-    <h6 class="text-warning"><?=$cup_dates[$i]?> Cup</h6>
+    <h6 class="text-warning"><?=date("l, F jS Y", strtotime($cup_dates->$i))?> Cup</h6>
   </div>
   <div class="col-md-6 col-md-offset-3 text-center">
-    <h6 class="text-primary"><a href="<?=$forum_links[$i]?>" target="_blank">Forum thread for all results</a></h6>
+    <h6 class="text-primary"><a href="<?=$forum_links->$i?>" target="_blank">Forum thread for all results</a></h6>
   </div>
 </div>
 <div class="row">

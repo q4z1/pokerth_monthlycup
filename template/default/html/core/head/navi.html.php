@@ -40,6 +40,7 @@
 		</li>
 		<li><a href="/admin/signup/">Signups</a></li>
 		<li><a href="/admin/signup/randomizer/">Randomizer</a></li>
+		<!--<li><a href="/admin/settings/">Settings</a></li>-->
 		<li><a href="/main/logout/">Logout</a></li>
 	</ul>
 </div>

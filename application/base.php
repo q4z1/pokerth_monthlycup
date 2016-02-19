@@ -21,6 +21,8 @@ class base
 
 	public static $controller;
 	public static $content;
+	
+	public static $settings;
 
 	public static $output;
 
@@ -66,6 +68,11 @@ class base
 	public static function read_configuration()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
+		self::$settings = array();
+		$settings = model_settings::get_all_entries();
+		foreach($settings as $set){
+			self::$settings[$set->type] = $set->value;
+		}
 		$config_array = model_configuration::get_all_entries();
 		if(is_null($config_array))
 		{

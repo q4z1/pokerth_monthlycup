@@ -51,8 +51,3 @@ $points = app::$content['points'];
     <p>1 point for participation + Round 1 points + Final Round points</p>
   </div>
 </div>
-<!--
-<pre>
-  <?=var_export($points, true)?>
-</pre>
--->
