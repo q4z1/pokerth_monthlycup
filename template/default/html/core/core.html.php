@@ -11,6 +11,7 @@
 	<head>
 		<title><?=app::$config->core->title?> <?=date("Y")?></title>
 		<meta charset="utf-8"/>
+		<link href="/favicon.ico" rel="shortcut icon" />
 		<?php require(view::get_special("inc"))?>
 	</head>
 	<body>

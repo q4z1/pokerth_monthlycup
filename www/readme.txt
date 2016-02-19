@@ -1,2 +1,2 @@
-rename or copy dist.htaccess to .htacces
+rename or copy dist.htaccess to .htaccess
 
