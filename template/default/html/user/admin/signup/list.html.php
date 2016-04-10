@@ -7,7 +7,8 @@ $list = app::$content['signups'];
 ?>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
-		<h3 class="text-primary">SignUps for <?=date("F, Y")?></h3>
+		<!--<h3 class="text-primary">SignUps for <?=date("F, Y")?></h3>-->
+		<h3 class="text-primary">SignUps for March Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime("2016-04-16 20:00:00"))?>)</span></h3>
 	</div>
 </div>
 <div class="row">
@@ -15,7 +16,7 @@ $list = app::$content['signups'];
     <table class="table table-hover table-bordered table-striped signups">
       <thead>
         <tr>
-					<th>ID</th>
+					<th>No.</th>
           <th>Date</th>
           <th>Player</th>
           <th>IP</th>
@@ -25,10 +26,12 @@ $list = app::$content['signups'];
       </thead>
       <tbody>
 				<?php if(count($list) > 0): ?>
+				<?php $i=0; ?>
 				<?php foreach($list as $sup): ?>
+				<?php $i++ ?>
 				<?php $sid = "signup" . date("Y") . "_id"; ?>
 				<tr>
-					<td><?=$sup->$sid?></td>
+					<td><?=$i?>.</td>
 					<td><?=$sup->date?></td>
 					<td><?=$sup->playername?></td>
 					<td><?=$sup->ip?></td>

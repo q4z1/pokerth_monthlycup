@@ -5,12 +5,14 @@
  */
 $cup_dates = json_decode(app::$settings["dates"]);
 $i = intval(date("m"));
+$i=4;
 $list = app::$content['signups'];
 $subs = app::$content['subs'];
 ?>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
-		<h3 class="text-primary">SignUps for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?> Cup</span></h3>
+		<!--<h3 class="text-primary">SignUps for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?> Cup</span></h3>-->
+		<h3 class="text-primary">SignUps for March Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime("2016-04-16 20:00:00"))?>)</span></h3>
 	</div>
 </div>
 <div class="row">
@@ -18,19 +20,21 @@ $subs = app::$content['subs'];
     <table class="table table-hover table-bordered table-striped signups">
       <thead>
         <tr>
-          <th>Player</th>
+					<th class="col-md-1">No.</th>
+          <th class="col-md-11">Player</th>
         </tr>
       </thead>
       <tbody>
 				<?php if(count($list) > 0): ?>
 				<?php foreach($list as $i =>$sup): ?>
 				<tr>
+					<td><?=($i+1)?>.</td>
 					<td><?=$sup->playername?></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php if(count($subs) > 0): ?>
 				<tr>
-					<td class="text-center">
+					<td colspan="2" class="text-center">
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2">
 								<h4 class="text-info">Substitutes:</h4>
@@ -46,7 +50,7 @@ $subs = app::$content['subs'];
 				<?php endif; ?>
 				<?php else: ?>
 				<tr>
-					<td class="text-center text-info">No Signups found!</td>
+					<td class="text-center text-info" colspan="2">No Signups found!</td>
 				</tr>
 				<?php endif; ?>
 			</tbody>

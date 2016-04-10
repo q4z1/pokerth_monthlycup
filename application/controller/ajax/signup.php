@@ -47,7 +47,12 @@ class controller_ajax_signup extends controller_ajax_base
       return;
     }
     $cls = "model_signup" . date("Y");
-    if(!is_null($cls::get_entry_by_playername(app::$request['playername']))){
+	
+	$sup = $cls::get_entry_by_month_playername(intval(date("m")), app::$request['playername']);
+	// @XXX: temporary static month value
+	$sup = $cls::get_entry_by_month_playername(3, app::$request['playername']);
+	
+    if(!is_null($sup)){
       app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
       app::$content['modal']["content"] = "The player <strong>" . app::$request['playername'] . "</strong> is already registered!";
       return;
@@ -57,8 +62,14 @@ class controller_ajax_signup extends controller_ajax_base
     $sup = new $cls();
     $sup->playername = app::$request['playername'];
     $sup->date = date("Y-m-d H:i:s");
+	
     $sup->month = intval(date("m"));
-    $sup->ip = $_SERVER['REMOTE_ADDR'];
+    
+	// @XXX: temporary static month value
+	$sup->month = 3;
+	
+	
+	$sup->ip = $_SERVER['REMOTE_ADDR'];
     $sup->save();
     
     app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";

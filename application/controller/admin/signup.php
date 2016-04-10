@@ -31,6 +31,8 @@ class controller_admin_signup extends controller_admin_base
 		view::set_col("maincol", "html/user/admin/signup/list.html");
 		$cls = "model_signup" . date("Y");
 		$list = $cls::get_entries_by_month(intval(date("m")));
+		// @XXX: temporary static month value
+		$list = $cls::get_entries_by_month(3);
 		app::$content['signups'] = $list;
   }
 	
@@ -38,6 +40,8 @@ class controller_admin_signup extends controller_admin_base
 		view::set_col("maincol", "html/user/admin/signup/randomizer.html");
 		$cls = "model_signup" . date("Y");
 		$list = $cls::get_public_valid_entries_by_month(intval(date("m")));
+		// @XXX: temporary static month value
+		$list = $cls::get_public_valid_entries_by_month(3);
 		app::$content['subs'] = array();
 		if(count($list) > 0){
 			if(count($list) >= 90){

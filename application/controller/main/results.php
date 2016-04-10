@@ -35,14 +35,14 @@ class controller_main_results extends controller_main_base
 			$this->{app::$param[0]}();
 		}
     else{
-      $this->results();
+      $this->series();
     }
 		$this->generate_html_output();
 	}
   
-  public function results()
+  public function series()
   {
-			view::set_col("maincol", "html/user/all/results/results.html");
+			view::set_col("maincol", "html/user/all/results/series.html");
 			$cls = "mixed_upload".date("Y");
 			
 			$month = intval(Date("m"));
@@ -78,13 +78,17 @@ class controller_main_results extends controller_main_base
 			app::$content['ranking'] = $plyr2;
   }
 	
-  public function lastmonth()
+  public function cup()
   {
-			view::set_col("maincol", "html/user/all/results/lastmonth.html");
+			view::set_col("maincol", "html/user/all/results/cup.html");
 			$last_month = date("m")-1;
 			if($last_month < 1){
 			 $last_month = 1;
 			}
+			if(count(app::$param) == 3){
+				$last_month = app::$param[1];
+			}
+		
 			$class = "model_upload" . date("Y");
 			$standings = $class::get_all_entries_by_month($last_month);
 			app::$content["standings"] = $standings;

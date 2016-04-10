@@ -69,8 +69,10 @@ $monthly = app::$content['monthly'];
           <td><?=$plyr['points']?></td>
           <?php $months = $plyr["months"]; ?>
           <?php foreach($months as $m => $month): ?>
-          <?php if(!is_null($month) || is_array($month)): ?>
+          <?php if(!is_null($month) && is_array($month) && count($month) > 0): ?>
           <td><?=$month['points']?></td>
+          <?php else: ?>
+          <td>&nbsp;</td>
           <?php endif; ?>
           <?php endforeach; ?>
         </tr>
