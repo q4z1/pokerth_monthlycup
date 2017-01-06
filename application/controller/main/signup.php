@@ -51,7 +51,7 @@ class controller_main_signup extends controller_main_base
 		$cls = "model_signup" . date("Y");
 		$list = $cls::get_public_valid_entries_by_month(intval(date("m")));
 		// @XXX: temporary static month value
-		$list = $cls::get_public_valid_entries_by_month(3);
+		//$list = $cls::get_public_valid_entries_by_month(11);
 		
 		app::$content['subs'] = array();
 		if(count($list) > 0){

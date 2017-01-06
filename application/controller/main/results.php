@@ -21,6 +21,8 @@ class controller_main_results extends controller_main_base
 		"12" => "December",
 	 );
 	
+	protected $year;
+	
 	public function __construct()
 	{
 		parent::__construct(__CLASS__);
@@ -30,20 +32,21 @@ class controller_main_results extends controller_main_base
 	public function run()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
+		$this->year = (array_key_exists("year", app::$request)) ? app::$request["year"] : date("Y");
 		if(count(app::$param) > 0 && method_exists($this, app::$param[0]))
 		{
 			$this->{app::$param[0]}();
 		}
-    else{
-      $this->series();
-    }
-		$this->generate_html_output();
-	}
+		else{
+		  $this->series();
+		}
+			$this->generate_html_output();
+		}
   
   public function series()
   {
 			view::set_col("maincol", "html/user/all/results/series.html");
-			$cls = "mixed_upload".date("Y");
+			$cls = "mixed_upload".$this->year;
 			
 			$month = intval(Date("m"));
 			
@@ -60,14 +63,16 @@ class controller_main_results extends controller_main_base
   public function halloffame()
   {
 			view::set_col("maincol", "html/user/all/results/halloffame.html");
-			$cls = "mixed_upload".date("Y");
+			$cls = "mixed_upload".$this->year;
+      //die($cls);
 			$plyrs = $cls::get_hall_of_fame();
+      //die(var_export($plyrs,true));
 			$plyr2 = array();
 			foreach($plyrs as $pl){
 				$awards = array();
 				$awds = json_decode($pl->awards);
 				foreach($awds as $awd){
-					$cls = "model_award" . date("Y");
+					$cls = "model_award" . $this->year;
 					$award = $cls::get_entry_by_month_type($awd->month, $awd->type);
 					$awards[] = '<img src="data:'.$award->mime.';base64,'.base64_encode(stripslashes($award->file)).'" alt="Award '.$awd->type.'">';
 				}
@@ -89,7 +94,7 @@ class controller_main_results extends controller_main_base
 				$last_month = app::$param[1];
 			}
 		
-			$class = "model_upload" . date("Y");
+			$class = "model_upload" . $this->year;
 			$standings = $class::get_all_entries_by_month($last_month);
 			app::$content["standings"] = $standings;
   }
@@ -122,23 +127,39 @@ class controller_main_results extends controller_main_base
   {
 			view::set_col("maincol", "html/user/all/results/rankings.html");
 
-			$cls = "mixed_upload".date("Y");
+			$cls = "mixed_upload".$this->year;
 			$gen = $cls::get_general_ranking();
 			$gen2 = array();
 			foreach($gen as $rank){
 				$rank["months"] = array();
-				for($i=1;$i<=intval(date("m"));$i++){
-					$m = $cls::get_points_by_player_month($rank['playername'], $i);
-					$rank['months'][$i] = $m;
+				if($this->year == date("Y")){
+					for($i=1;$i<=intval(date("m"));$i++){
+						$m = $cls::get_points_by_player_month($rank['playername'], $i);
+						$rank['months'][$i] = $m;
+					}
+				}else{
+					for($i=1;$i<=12;$i++){
+						$m = $cls::get_points_by_player_month($rank['playername'], $i);
+						$rank['months'][$i] = $m;
+					}
 				}
+
 				$gen2[] = $rank;
 			}
 			app::$content['general'] = $gen2;
 			
 			$monthly = array();
-			for($i=1;$i<=intval(date("m"));$i++){
-				$month = date("F", strtotime(date("Y-$i-1")));
-				$monthly[$month] = $cls::get_ranking_by_month($i);
+			if($this->year == date("Y")){
+				for($i=1;$i<=intval(date("m"));$i++){
+					$month = date("F", strtotime(date("Y-$i-1")));
+					$monthly[$month] = $cls::get_ranking_by_month($i);
+				}
+			}
+			else{
+				for($i=1;$i<=12;$i++){
+					$month = date("F", strtotime(date("Y-$i-1")));
+					$monthly[$month] = $cls::get_ranking_by_month($i);
+				}	
 			}
 			app::$content['monthly'] = $monthly;
   }

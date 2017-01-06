@@ -17,8 +17,8 @@ class controller_ajax_upload extends controller_ajax_base
 		"06" => "June",
 		"07" => "July",
 		"08" => "August",
-		"09" => "October",
-		"10" => "September",
+		"09" => "September",
+		"10" => "October",
 		"11" => "November",
 		"12" => "December",
 	 );

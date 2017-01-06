@@ -8,6 +8,8 @@
  */
 class controller_res_award extends controller_res_base
 {
+	protected $year;
+	
 	public function __construct()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
@@ -18,6 +20,7 @@ class controller_res_award extends controller_res_base
 	public function run()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
+		$this->year = (array_key_exists("year", app::$request)) ? app::$request["year"] : date("Y");
 		$this->fetch_resource($this->type);
 	}
 	
@@ -36,7 +39,7 @@ class controller_res_award extends controller_res_base
       $month = intval($req['month']);
     }
     
-    $cls = "model_award".date("Y");
+    $cls = "model_award".$this->year;
     $awrd = $cls::get_entry_by_month_type($month, $type);
     
 		header("Content-Type: ".$awrd->mime);

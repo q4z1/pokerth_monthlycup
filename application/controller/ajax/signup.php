@@ -50,7 +50,7 @@ class controller_ajax_signup extends controller_ajax_base
 	
 	$sup = $cls::get_entry_by_month_playername(intval(date("m")), app::$request['playername']);
 	// @XXX: temporary static month value
-	$sup = $cls::get_entry_by_month_playername(3, app::$request['playername']);
+	//$sup = $cls::get_entry_by_month_playername(11, app::$request['playername']);
 	
     if(!is_null($sup)){
       app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
@@ -66,7 +66,7 @@ class controller_ajax_signup extends controller_ajax_base
     $sup->month = intval(date("m"));
     
 	// @XXX: temporary static month value
-	$sup->month = 3;
+	//$sup->month = 11;
 	
 	
 	$sup->ip = $_SERVER['REMOTE_ADDR'];

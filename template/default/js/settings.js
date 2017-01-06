@@ -13,5 +13,5 @@ $(window).load
 );
 
 function edit_setting(type) {
-  alert("edit " + type + " clicked!");
+  alert("edit " + type + " clicked - 'real' functionality will follow :)");
 }

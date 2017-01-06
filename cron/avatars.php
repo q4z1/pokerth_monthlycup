@@ -36,20 +36,19 @@ cfg::init();
 $cls = "model_player" . date("Y");
 $players = $cls::get_all_entries();
 foreach($players as $player){
-  $url = "http://www.poker-heroes.com/profile.html?user=" . urlencode($player->playername);
+  $url = "http://pokerth.net/component/pthranking/?view=pthranking&layout=profile&username=" . urlencode($player->playername);
+	//$url = "http://pokerth.net/component/pthranking/?view=pthranking&layout=profile&username=" . urlencode("sp0ck");
   $html = file_get_contents($url);
-	$aP = strpos($html, '<img src="http://avatar.poker-heroes.com/web/', 0);
+	$aP = strpos($html, 'src="data: ', 0);
   if($aP !== false){
-		$aP += 10;
+		$aP += 11;
 		$eP = strpos($html, '"', $aP);
-		$img_url = substr($html, $aP,($eP-$aP));
-		$mP = strrpos($img_url, ".") +1;
-		$suffix = substr($img_url, $mP);
-		if($suffix == "jpg"){
-			$suffix = "jpeg";
-		}
-		$mime = "image/$suffix";
-		$img = file_get_contents($img_url);
+		$img_data = substr($html, $aP,($eP-$aP));
+		$aP = strpos($img_data, "image", 0);
+		$eP = strpos($img_data, ";", $aP);
+		$mime = substr($img_data, $aP, ($eP-$aP));
+		$imgA = explode(",", $img_data);
+		$img = base64_decode($imgA[1]);
 		$player->avatar = addslashes($img);
 		$player->avatar_mime = $mime;
 		$player->save();

@@ -7,7 +7,7 @@ $plyrs = app::$content['ranking'];
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h3 class="text-primary">Hall-of-Fame <?=date("Y")?></h3>
+    <h3 class="text-primary">Hall-of-Fame <?=($this->year == date("Y")) ? date("Y") : $this->year?></h3>
   </div>
 </div>
 <div class="row">

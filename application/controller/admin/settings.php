@@ -21,8 +21,8 @@ class controller_admin_settings extends controller_admin_base
 		{
 			$this->{app::$param[0]}();
 		}else{
-      $this->show_settings();
-    }
+			$this->show_settings();
+		  }
 		$this->generate_html_output();
 	}
   

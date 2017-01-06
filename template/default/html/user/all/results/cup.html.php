@@ -13,7 +13,8 @@ if(count(app::$param) == 3){
     $last_month = app::$param[1];
 }
 
-$last_month_long = date("F", strtotime(date("Y-$last_month-d")));
+
+$last_month_long = date("F", strtotime(date("Y-$last_month-1")));
 $last_month = intval($last_month);
 
 $stdgs = app::$content["standings"];
@@ -29,7 +30,7 @@ $stdgs = app::$content["standings"];
     <table class="table table-hover table-bordered table-striped">
       <thead>
         <tr>
-          <th>Series <?=date("Y")?> <?=$last_month_long?> Cup Table</th>
+          <th>Series <?=$this->year?> <?=$last_month_long?> Cup Table</th>
           <th>Player</th>
           <th>Place</th>
           <th>Points</th>

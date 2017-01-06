@@ -13,8 +13,8 @@ $months = array(
   6 => "June",
   7 => "July",
   8 => "August",
-  9 => "October",
-  10 => "September",
+  9 => "September",
+  10 => "October",
   11 => "November",
   12 => "December",
  );
@@ -76,7 +76,9 @@ $months = array(
         </tr>
         <?php endforeach; ?>
         <?php else: ?>
+        <tr>
           <td colspan="5">No awards available!</td>
+        </tr>
         <?php endif; ?>
       </tbody>
     </table>
@@ -122,6 +124,4 @@ $months = array(
       </div>
     </div>
   </div>
-</div>
-  
 </div>

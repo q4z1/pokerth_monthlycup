@@ -44,6 +44,7 @@ class app extends base
 		$application->run();
 		/* Ausgabe - je nach $proc (browser|cli) */
 		self::output();
+		debug::output();
 		debug::file_output();
 		return;
 	}

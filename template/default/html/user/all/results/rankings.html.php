@@ -9,7 +9,7 @@ $monthly = app::$content['monthly'];
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h3 class="text-primary">Rankings</h3>
+    <h3 class="text-primary">Rankings <?=($this->year == date("Y")) ? date("Y") : $this->year?></h3>
   </div>
 </div>
 <div class="row">
@@ -24,15 +24,24 @@ $monthly = app::$content['monthly'];
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Month
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
+          <?php if($this->year == date("Y")): ?>
           <?php for($i=1;$i<=intval(date("m"));$i++): ?>
           <?php $month = date("F", strtotime(date("Y-$i-1"))); ?>
           <?php if(!is_null($monthly[$month])): ?>
             <li><a href="#<?=strtolower($month)?>"><?=$month?> Cup</a></li>
           <?php endif; ?>
           <?php endfor; ?>
+          <?php else: ?>
+          <?php for($i=1;$i<=12;$i++): ?>
+          <?php $month = date("F", strtotime(date("Y-$i-1"))); ?>
+          <?php if(!is_null($monthly[$month])): ?>
+            <li><a href="#<?=strtolower($month)?>"><?=$month?> Cup</a></li>
+          <?php endif; ?>
+          <?php endfor; ?>
+          <?php endif; ?>
         </ul>
       </li>
-    </li>
+    </ul>
   </div>
 </div>
 <div class="row">
@@ -53,12 +62,9 @@ $monthly = app::$content['monthly'];
           <th>Rank</th>
           <th>Player</th>
           <th>Total CRPs</th>
-          <?php $months = $gen[0]["months"]; ?>
-          <?php foreach($months as $m => $month): ?>
-          <?php if(!is_null($month) || is_array($month)): ?>
-          <th><?=date("F", strtotime(date("Y-$m-1")))?> Cup</th>
-          <?php endif; ?>
-          <?php endforeach; ?>
+          <?php for($i=1;$i<=intval(date("m"));$i++): ?>
+          <th><?=date("F", strtotime(date("Y-$i-1")))?> Cup</th>
+          <?php endfor; ?>
         </tr>
       </thead>
       <tbody>

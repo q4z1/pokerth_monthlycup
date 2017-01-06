@@ -5,6 +5,7 @@
  */
  
 $list = app::$settings;
+
 ?>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
@@ -27,10 +28,10 @@ $list = app::$settings;
 				<tr>
 					<td><strong><?=$type?></strong></td>
 					<td>
-            <?if($type == "dates"): ?>
+            <?php if($type == "dates"): ?>
 						<table class="table table-hover table-bordered table-striped">
 							<tbody>
-            <?php $dates = json_decode($value) ?>
+						<?php $dates = json_decode($value) ?>
 						<?php foreach($dates as $i => $date): ?>
 								<tr>
 									<td><?=date("F", strtotime(date("Y-$i-01")))?></td>
@@ -39,7 +40,7 @@ $list = app::$settings;
 						<?php endforeach; ?>
 							</tbody>
 						</table>
-						<?php elseif($type == "forum_links"): ?>
+			<?php elseif($type == "forum_links"): ?>
 						<table class="table table-hover table-bordered table-striped">
 							<tbody>
             <?php $links = json_decode($value) ?>

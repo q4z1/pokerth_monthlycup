@@ -8,14 +8,15 @@ $points = app::$content['points'];
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h3 class="text-primary">Cup Ranking Points <?=date("Y")?></h3>
+    <h3 class="text-primary">Cup Ranking Points <?=($this->year == date("Y")) ? date("Y") : $this->year?></h3>
   </div>
 </div>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h4 class="text-success">Calculation of Points</h3>
+    <h4 class="text-success">Calculation of Points</h4>
   </div>
 </div>
+<div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
     <table class="table table-hover table-bordered table-striped">
       <thead>
@@ -43,7 +44,7 @@ $points = app::$content['points'];
 </div>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h4 class="text-warning">Score</h3>
+    <h4 class="text-warning">Score</h4>
   </div>
 </div>
 <div class="row">

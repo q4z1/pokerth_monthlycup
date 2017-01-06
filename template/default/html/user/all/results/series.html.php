@@ -37,17 +37,17 @@ $forum_links = json_decode(app::$settings["forum_links"]);
   <div class="col-md-8 col-md-offset-2 text-center">
     <div class="row">
       <div class="col-md-4 text-center">
-        <img src="/res/award/?type=gold1st&month=<?=$i?>" alt="Gold 1st" />
+        <img src="/res/award/?type=gold1st&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 1st" />
         <br />
         <strong><?=$top3[$i][0]->playername?></strong>
       </div>
       <div class="col-md-4 text-center">
-        <img src="/res/award/?type=gold2nd&month=<?=$i?>" alt="Gold 2nd" />
+        <img src="/res/award/?type=gold2nd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 2nd" />
         <br />
         <strong><?=$top3[$i][1]->playername?></strong>
       </div>
       <div class="col-md-4 text-center">
-        <img src="/res/award/?type=gold3rd&month=<?=$i?>" alt="Gold 3rd" />
+        <img src="/res/award/?type=gold3rd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 3rd" />
         <br />
         <strong><?=$top3[$i][2]->playername?></strong>
       </div>
