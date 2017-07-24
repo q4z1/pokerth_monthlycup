@@ -5,12 +5,12 @@
  * Stellt alle Daten der Tabelle Moderator zur Verfügung
  *
  */
-class model_settings extends model_base
+class model_settings2017 extends model_base
 {
 
 	public function __construct()
 	{
-		parent::__construct('settings');
+		parent::__construct('settings2017');
 	}
 
 	/*
@@ -25,10 +25,10 @@ class model_settings extends model_base
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($settings_id) betreten.");
 		return data_entry::get_by_filter
 		(
-			$table = 'settings',
+			$table = 'settings2017',
 			$filter = array
 			(
-				'settings_id' => $settings_id
+				'settings2017_id' => $settings_id
 			),
 			$single = true
 		);
@@ -43,14 +43,14 @@ class model_settings extends model_base
 	public static function get_all_entries()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
-		return data_entry::get_all('settings', __CLASS__);
+		return data_entry::get_all('settings2017', __CLASS__);
 	}
   
 	public static function get_all_entries_assoc()
 	{
 		$db = database::get_instance();
 		$sql = "
-			SELECT * FROM `settings`;
+			SELECT * FROM `settings2017`;
 		";
 		return $db->get_all_assoc($sql);
 	}
@@ -67,7 +67,7 @@ class model_settings extends model_base
 		$db = database::get_instance();
 		$settings_id = $db->escape($settings_id);
 		$sql = "
-			DELETE FROM `settings` WHERE `settings_id` = $settings_id;
+			DELETE FROM `settings2017` WHERE `settings2017_id` = $settings_id;
 		";
 		return $db->query($sql);
 	}

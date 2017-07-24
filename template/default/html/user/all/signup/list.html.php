@@ -10,7 +10,7 @@ $subs = app::$content['subs'];
 ?>
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
-		<h3 class="text-primary">SignUps forfor <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>)</span></h3>
+		<h3 class="text-primary">SignUps for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>, 20:00 CEST)</span></h3>
 		<!--<h3 class="text-primary">SignUps for December Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime("2016-12-23 20:00:00"))?>)</span></h3>-->
 	</div>
 </div>
@@ -28,7 +28,7 @@ $subs = app::$content['subs'];
 				<?php foreach($list as $i =>$sup): ?>
 				<tr>
 					<td><?=($i+1)?>.</td>
-					<td><?=$sup->playername?></td>
+					<td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$sup->playername?>"><?=$sup->playername?></a></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php if(count($subs) > 0): ?>

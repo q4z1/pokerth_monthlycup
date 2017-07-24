@@ -68,8 +68,11 @@ class controller_ajax_signup extends controller_ajax_base
 	// @XXX: temporary static month value
 	//$sup->month = 11;
 	
+	$sup->fp = app::$request['fp'];
 	
 	$sup->ip = $_SERVER['REMOTE_ADDR'];
+	// @XXX: cloudflare
+	if(array_key_exists("HTTP_CF_CONNECTING_IP", $_SERVER)) $sup->ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
     $sup->save();
     
     app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";

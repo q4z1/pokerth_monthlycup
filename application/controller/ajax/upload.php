@@ -88,7 +88,7 @@ class controller_ajax_upload extends controller_ajax_base
 				if(is_null($cls::get_entry_by_playername($players[$i])))
 				{
 					$pl = new $cls();
-					$pl->playername = $players[$i];
+					$pl->playername = trim($players[$i]);
 					$pl->save();
 				}
 				
@@ -96,7 +96,7 @@ class controller_ajax_upload extends controller_ajax_base
 				$ul->type = 'firstround';
 				$ul->table_ = $table;
 				$ul->month = $imonth;
-				$ul->playername = $players[$i];
+				$ul->playername = trim($players[$i]);
 				$ul->position = $i;
 				$ul->points = $this->points->first->$i;
 				$ul->save();

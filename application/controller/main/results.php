@@ -49,12 +49,13 @@ class controller_main_results extends controller_main_base
 			$cls = "mixed_upload".$this->year;
 			
 			$month = intval(Date("m"));
+			if($this->year != date("Y")) $month = 12;
 			
 			$top3 = array();
 			for($i=1;$i<=$month;$i++){
 				$top3[$i] = $cls::get_top_three_by_month($i);
 			}
-			
+			app::$content["year"] = $this->year;
 			app::$content["top3"] = $top3;
 			
 
@@ -68,17 +69,20 @@ class controller_main_results extends controller_main_base
 			$plyrs = $cls::get_hall_of_fame();
       //die(var_export($plyrs,true));
 			$plyr2 = array();
-			foreach($plyrs as $pl){
-				$awards = array();
-				$awds = json_decode($pl->awards);
-				foreach($awds as $awd){
-					$cls = "model_award" . $this->year;
-					$award = $cls::get_entry_by_month_type($awd->month, $awd->type);
-					$awards[] = '<img src="data:'.$award->mime.';base64,'.base64_encode(stripslashes($award->file)).'" alt="Award '.$awd->type.'">';
+			if(is_array($plyrs) && count($plyrs) > 0){
+				foreach($plyrs as $pl){
+					$awards = array();
+					$awds = json_decode($pl->awards);
+					foreach($awds as $awd){
+						$cls = "model_award" . $this->year;
+						$award = $cls::get_entry_by_month_type($awd->month, $awd->type);
+						$awards[] = '<img src="data:'.$award->mime.';base64,'.base64_encode(stripslashes($award->file)).'" alt="Award '.$awd->type.'">';
+					}
+					$pl->awds = $awards;
+					$plyr2[] = $pl;
 				}
-				$pl->awds = $awards;
-				$plyr2[] = $pl;
 			}
+
 			
 			app::$content['ranking'] = $plyr2;
   }

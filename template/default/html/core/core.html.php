@@ -42,7 +42,7 @@
 						<i class="glyphicon glyphicon-chevron-up"></i> Back to Top
 				</a>
 		</span>
-		<?php $ts = '?ts=20160219'; ?>
+		<?php $ts = '?ts=20170724_1545'; ?>
 		<?php foreach(app::$inc->js as $filename): ?>
 		<script type="text/javascript" src="<?=cfg::$web_root?>res/js/<?=cfg::$template."/".$filename.'.js'.$ts?>"></script>
 		<?php endforeach ?>

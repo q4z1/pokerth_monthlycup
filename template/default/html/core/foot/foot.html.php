@@ -12,7 +12,7 @@
 </div>
 <div class="footer">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2 text-center">
+    <div class="col-md-8 col-md-offset-2 text-center" id="footer_txt">
       <?=app::$settings['footer']?>
     </div>
   </div>

@@ -71,7 +71,7 @@ $monthly = app::$content['monthly'];
         <?php foreach($gen as $i => $plyr): ?>
         <tr>
           <td><?=($i+1)?></td>
-          <td><?=$plyr['playername']?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$plyr['playername']?>"><?=$plyr['playername']?></a></td>
           <td><?=$plyr['points']?></td>
           <?php $months = $plyr["months"]; ?>
           <?php foreach($months as $m => $month): ?>
@@ -115,7 +115,7 @@ $monthly = app::$content['monthly'];
         <?php foreach($players as $i => $plyr): ?>
         <tr>
           <td><?=($i+1)?></td>
-          <td><?=$plyr['playername']?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$plyr['playername']?>"><?=$plyr['playername']?></a></td>
           <td><?=$plyr['points']?></td>
         </tr>
         <?php endforeach; ?>

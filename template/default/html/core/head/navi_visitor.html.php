@@ -9,7 +9,7 @@
  }
  
   // @XXX: temporary february results
- $last_month = 2;
+ //$last_month = 2;
  
 ?>
 <style>
@@ -100,11 +100,12 @@
 								<li><a href="/main/results/series/">Series Results</a></li>
 								<li><a href="/main/results/rankings/">Series Rankings</a></li>
 								<li><a href="/main/results/halloffame/">Hall-Of-Fame</a></li>
-								<li><a href="/main/results/points/">Cup Ranking Points</a></li>
 							</ul>
 						</li>
 						<li><a href="/main/signup/">Registration</a></li>
 						<li><a href="/main/signup/show/">Signups</a></li>
+						<li><a href="/main/results/points/">Cup Ranking Points</a></li>
+						<li><a href="/main/settings/">Table Settings</a></li>
 					</ul>
 			</div>
   </div>
@@ -114,7 +115,9 @@
 	document.onreadystatechange = function() {
   if (document.readyState === 'complete') {
 			$(function(){
+				console.log("event fired");
 				$(".dropdown-menu > li > a.trigger").on("click",function(e){
+					console.log("archive clicked");
 					var current=$(this).next();
 					var grandparent=$(this).parent().parent();
 					if($(this).hasClass('left-caret')||$(this).hasClass('right-caret'))

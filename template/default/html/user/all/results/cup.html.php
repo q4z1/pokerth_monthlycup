@@ -46,7 +46,7 @@ $stdgs = app::$content["standings"];
         <?php elseif(intval($table->table_) == $i): ?>
         <tr>
           <td><?=$last_month_long?> Cup T<?=$i?></td>
-          <td><?=$table->playername?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$table->playername?>"><?=$table->playername?></a></td>
           <td><?=$table->position?></td>
           <td><?=$table->points?></td>
         </tr>
@@ -61,7 +61,7 @@ $stdgs = app::$content["standings"];
         <?php if($table->type == "final" && $table->month == intval($last_month) && $table->table_ ==  "gold"): ?>
         <tr class="success">
           <td><?=$last_month_long?> Gold</td>
-          <td><?=$table->playername?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$table->playername?>"><?=$table->playername?></a></td>
           <td><?=$table->position?></td>
           <td><?=$table->points?></td>
         </tr>
@@ -75,7 +75,7 @@ $stdgs = app::$content["standings"];
         <?php if($table->type == "final" && $table->month == intval($last_month) && $table->table_ == "silver"): ?>
         <tr class="danger">
           <td><?=$last_month_long?> Silver</td>
-          <td><?=$table->playername?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$table->playername?>"><?=$table->playername?></a></td>
           <td><?=$table->position?></td>
           <td><?=$table->points?></td>
         </tr>
@@ -89,7 +89,7 @@ $stdgs = app::$content["standings"];
         <?php if($table->type == "final" && $table->month == intval($last_month) && $table->table_ == "bronze"): ?>
         <tr class="warning">
           <td><?=$last_month_long?> Bronze</td>
-          <td><?=$table->playername?></td>
+          <td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$table->playername?>"><?=$table->playername?></a></td>
           <td><?=$table->position?></td>
           <td><?=$table->points?></td>
         </tr>

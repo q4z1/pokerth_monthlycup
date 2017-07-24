@@ -17,6 +17,20 @@ $(window).load
         });
       });
     }
+    
+    if ($('table#signups').length > 0) {
+         $("table#signups").tablesorter(
+        {
+          theme : 'bootstrap',
+          cssIcon: 'tablesorter-icon',
+          widgets : [ "uitheme" ],
+          initWidgets: true,
+          initialized : function(table){
+            $(table).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon bootstrap-icon-unsorted"></i>');
+          }
+        }
+      );
+    }
   }
 );
 
@@ -26,7 +40,7 @@ function validate_signup(id) {
     { id: id}
   ).done(function(data){
     showModal(data);
-    $('button.validatesup[__sup_id__='+id+']').parent().parent().children().eq(4).text("Yes");
+    $('button.validatesup[__sup_id__='+id+']').parent().parent().children().eq(5).text("Yes");
     $('button.validatesup[__sup_id__='+id+']').remove();
   });
 

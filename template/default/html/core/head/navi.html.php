@@ -7,9 +7,7 @@
  if($last_month < 1){
   $last_month = 1;
  }
- 
- // @XXX: temporary february results
- $last_month = 2;
+
 ?>
 <style>
 .dropdown-menu>li{
@@ -107,7 +105,6 @@
 			<li><a href="/main/results/series/">Series Results</a></li>
 			<li><a href="/main/results/rankings/">Series Rankings</a></li>
 			<li><a href="/main/results/halloffame/">Hall-Of-Fame</a></li>
-			<li><a href="/main/results/points/">Cup Ranking Points</a></li>
 		  </ul>
 		</li>
 		<li class="dropdown">
@@ -120,7 +117,9 @@
 		</li>
 		<li><a href="/admin/signup/">Signups</a></li>
 		<li><a href="/admin/signup/randomizer/">Randomizer</a></li>
-		<li><a href="/admin/settings/">Settings</a></li>
+		<li><a href="/main/results/points/">Cup Ranking Points</a></li>
+		<li><a href="/main/settings/">Table Settings</a></li>
+		<li><a href="/admin/settings/">Admin Settings</a></li>
 		<li><a href="/main/logout/">Logout</a></li>
 	  </ul>
 	 </div>

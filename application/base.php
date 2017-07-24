@@ -69,7 +69,9 @@ class base
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
 		self::$settings = array();
-		$settings = model_settings::get_all_entries();
+		$year = (array_key_exists("year", $_REQUEST)) ? $_REQUEST["year"] : date("Y");
+		$cls = "model_settings$year";
+		$settings = $cls::get_all_entries();
 		foreach($settings as $set){
 			self::$settings[$set->type] = $set->value;
 		}
@@ -220,7 +222,7 @@ class base
 		view::set_special("inc", "browser/inc/inc.html");
 		if(self::$session == "visitor")
 		{
-			if(self::$controller != "main_results" && self::$controller != "main_signup"){
+			if(self::$controller != "main_results" && self::$controller != "main_signup" && self::$controller != "main_settings"){
 				view::set_col("maincol", "html/login/login.html");
 			}
 			

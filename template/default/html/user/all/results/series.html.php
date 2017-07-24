@@ -12,10 +12,10 @@ $forum_links = json_decode(app::$settings["forum_links"]);
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-center">
-    <h3 class="text-primary">Series <?=date("Y")?> Results</h3>
+    <h3 class="text-primary">Series <?=app::$content["year"]?> Results</h3>
   </div>
 </div>
-<?php for($i=1; $i<=intval(date("m")); $i++): ?>
+<?php for($i=1; $i<=count($top3); $i++): ?>
 <?php if(!is_null($top3[$i])): ?>
 <div class="row">
   <div class="col-md-6 col-md-offset-3 text-center">
@@ -39,17 +39,17 @@ $forum_links = json_decode(app::$settings["forum_links"]);
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold1st&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 1st" />
         <br />
-        <strong><?=$top3[$i][0]->playername?></strong>
+        <strong><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$top3[$i][0]->playername?>"><?=$top3[$i][0]->playername?></a></strong>
       </div>
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold2nd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 2nd" />
         <br />
-        <strong><?=$top3[$i][1]->playername?></strong>
+        <strong><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$top3[$i][1]->playername?>"><?=$top3[$i][1]->playername?></a></strong>
       </div>
       <div class="col-md-4 text-center">
         <img src="/res/award/?type=gold3rd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 3rd" />
         <br />
-        <strong><?=$top3[$i][2]->playername?></strong>
+        <strong><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$top3[$i][2]->playername?>"><?=$top3[$i][2]->playername?></a></strong>
       </div>
     </div>
   </div>

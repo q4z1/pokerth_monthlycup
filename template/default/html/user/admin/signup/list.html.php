@@ -10,18 +10,19 @@ $list = app::$content['signups'];
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
 		<!--<h3 class="text-primary">SignUps for <?=date("F, Y")?></h3>-->
-		<h3 class="text-primary">SignUps forfor <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>)</span></h3>
+		<h3 class="text-primary">SignUps for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>)</span></h3>
 	</div>
 </div>
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <table class="table table-hover table-bordered table-striped signups">
+    <table id="signups" class="table table-hover table-bordered table-striped signups">
       <thead>
         <tr>
 					<th>No.</th>
           <th>Date</th>
           <th>Player</th>
           <th>IP</th>
+		  <th>Fingerprint</th>
 					<th>Accepted</th>
 					<th>Action</th>
         </tr>
@@ -35,8 +36,9 @@ $list = app::$content['signups'];
 				<tr>
 					<td><?=$i?>.</td>
 					<td><?=$sup->date?></td>
-					<td><?=$sup->playername?></td>
+					<td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$sup->playername?>"><?=$sup->playername?></a></td>
 					<td><?=$sup->ip?></td>
+					<td><?=$sup->fp?></td>
 					<td><?=($sup->valid==1)?'Yes':'No'?></td>
 					<td class="text-center">
 						<button class="btn btn-danger removesup" type="submit" name="removesup" __sup_id__="<?=$sup->$sid?>">Remove</button>
