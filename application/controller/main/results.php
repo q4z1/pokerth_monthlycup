@@ -53,8 +53,12 @@ class controller_main_results extends controller_main_base
 			
 			$top3 = array();
 			for($i=1;$i<=$month;$i++){
-				$top3[$i] = $cls::get_top_three_by_month($i);
+				$top3[$i] = $cls::get_top_three_by_month_2($i);
+
 			}
+			
+			//die("<pre>".var_export($top3[8],true)."</pre>");
+			
 			app::$content["year"] = $this->year;
 			app::$content["top3"] = $top3;
 			

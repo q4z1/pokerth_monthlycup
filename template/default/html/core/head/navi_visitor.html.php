@@ -92,6 +92,45 @@
 										<li><a href="/main/results/points/?year=2016">Cup Ranking Points</a></li>
 									</ul>
 								</li>
+								<li>
+									<a class="trigger right-caret" href="#">Archive 2017</a>
+									<ul class="dropdown-menu sub-menu">
+										<?php for($i=1; $i<=12; $i++): ?>
+										<li><a href="/main/results/cup/<?=$i?>/?year=2017"><?=date("F", strtotime(date("2017-").($i)."-01"))?> Cup Standings</a></li>
+										<?php endfor; ?>
+										<li role="separator" class="divider"></li>
+										<li><a href="/main/results/series/?year=2017">Series Results</a></li>
+										<li><a href="/main/results/rankings/?year=2017">Series Rankings</a></li>
+										<li><a href="/main/results/halloffame/?year=2017">Hall-Of-Fame</a></li>
+										<li><a href="/main/results/points/?year=2017">Cup Ranking Points</a></li>
+									</ul>
+								</li>
+								<li>
+									<a class="trigger right-caret" href="#">Archive 2018</a>
+									<ul class="dropdown-menu sub-menu">
+										<?php for($i=1; $i<=12; $i++): ?>
+										<li><a href="/main/results/cup/<?=$i?>/?year=2018"><?=date("F", strtotime(date("2018-").($i)."-01"))?> Cup Standings</a></li>
+										<?php endfor; ?>
+										<li role="separator" class="divider"></li>
+										<li><a href="/main/results/series/?year=2018">Series Results</a></li>
+										<li><a href="/main/results/rankings/?year=2018">Series Rankings</a></li>
+										<li><a href="/main/results/halloffame/?year=2018">Hall-Of-Fame</a></li>
+										<li><a href="/main/results/points/?year=2018">Cup Ranking Points</a></li>
+									</ul>
+								</li>
+								<li>
+									<a class="trigger right-caret" href="#">Archive 2019</a>
+									<ul class="dropdown-menu sub-menu">
+										<?php for($i=1; $i<=12; $i++): ?>
+										<li><a href="/main/results/cup/<?=$i?>/?year=2019"><?=date("F", strtotime(date("2019-").($i)."-01"))?> Cup Standings</a></li>
+										<?php endfor; ?>
+										<li role="separator" class="divider"></li>
+										<li><a href="/main/results/series/?year=2019">Series Results</a></li>
+										<li><a href="/main/results/rankings/?year=2019">Series Rankings</a></li>
+										<li><a href="/main/results/halloffame/?year=2019">Hall-Of-Fame</a></li>
+										<li><a href="/main/results/points/?year=2019">Cup Ranking Points</a></li>
+									</ul>
+								</li>
 								<li role="separator" class="divider"></li>
 								<?php for($i=1; $i<=intval(date("m")); $i++): ?>
 								<li><a href="/main/results/cup/<?=$i?>/"><?=date("F", strtotime(date("Y-").($i)."-01"))?> Cup Standings</a></li>

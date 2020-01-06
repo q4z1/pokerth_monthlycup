@@ -52,19 +52,45 @@ $(window).load
 		
 		// short signup/registration handling because its public
 		if ($('form#signup').length > 0) {
-      $('button#submit').click(function(event){
-				event.preventDefault();
-				
-
-				$.post(
-					$('form#signup').prop('action'),
-					{
-						playername: $('input#playername').val(),
-						fp: fp(),
-					}
-				).done(function(data){showModal(data)});
-			});
-    }
+		  $('button#submit').click(function(event){
+					event.preventDefault();
+          try{
+            if (window.requestIdleCallback) {
+                requestIdleCallback(function () {
+                    Fingerprint2.get(function (components) {
+                      //console.log(components) // an array of components: {key: ..., value: ...}
+                      var values = components.map(function (component) { return component.value })
+                      var murmur = Fingerprint2.x64hash128(values.join(''), 31);
+                      $.post(
+                        $('form#signup').prop('action'),
+                        {
+                          playername: $('input#playername').val(),
+                          fp: fp(),
+                          fpnew: murmur,
+                        }
+                      ).done(function(data){showModal(data)});
+                    })
+                })
+            } else {
+                setTimeout(function () {
+                    Fingerprint2.get(function (components) {
+                      //console.log(components) // an array of components: {key: ..., value: ...}
+                      var values = components.map(function (component) { return component.value })
+                      var murmur = Fingerprint2.x64hash128(values.join(''), 31);
+                      $.post(
+                        $('form#signup').prop('action'),
+                        {
+                          playername: $('input#playername').val(),
+                          fp: fp(),
+                          fpnew: murmur,
+                        }
+                      ).done(function(data){showModal(data)});
+                    })  
+                }, 500)
+            }
+          }catch(e){}
+				});
+		}
 	}
 );
 

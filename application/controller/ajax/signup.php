@@ -46,11 +46,11 @@ class controller_ajax_signup extends controller_ajax_base
       app::$content['modal']["content"] = "No playername given!";
       return;
     }
-    $cls = "model_signup" . date("Y");
+	$cls = "model_signup" . date("Y");
 	
-	$sup = $cls::get_entry_by_month_playername(intval(date("m")), app::$request['playername']);
+	$sup = $cls::get_entry_by_month_playername(intval(date("m")), trim(app::$request['playername']));
 	// @XXX: temporary static month value
-	//$sup = $cls::get_entry_by_month_playername(11, app::$request['playername']);
+	// $sup = $cls::get_entry_by_month_playername(12, app::$request['playername']);
 	
     if(!is_null($sup)){
       app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
@@ -58,17 +58,19 @@ class controller_ajax_signup extends controller_ajax_base
       return;
     }
     
-    $cls = "model_signup" . date("Y");
+	$cls = "model_signup" . date("Y");
     $sup = new $cls();
-    $sup->playername = app::$request['playername'];
+    $sup->playername = trim(app::$request['playername']);
     $sup->date = date("Y-m-d H:i:s");
 	
     $sup->month = intval(date("m"));
     
 	// @XXX: temporary static month value
-	//$sup->month = 11;
+	// $sup->month = 12;
 	
 	$sup->fp = app::$request['fp'];
+	
+	$sup->fpnew = app::$request['fpnew'];
 	
 	$sup->ip = $_SERVER['REMOTE_ADDR'];
 	// @XXX: cloudflare
@@ -85,7 +87,7 @@ class controller_ajax_signup extends controller_ajax_base
 
 			$id = app::$request['id'];
 
-      $cls = "model_signup" . date("Y");
+	  $cls = "model_signup" . date("Y");
       $sup = $cls::get_entry_by_id($id);
       if(is_null($sup)){
 				app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
@@ -108,7 +110,8 @@ class controller_ajax_signup extends controller_ajax_base
 
 			$id = app::$request['id'];
 
-      $cls = "model_signup" . date("Y");
+	  $cls = "model_signup" . date("Y");
+	  $cls = "model_signup2019"; // @XXX: temporary static year value
       $sup = $cls::get_entry_by_id($id);
       if(is_null($sup)){
 				app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";

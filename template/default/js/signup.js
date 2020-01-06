@@ -40,7 +40,7 @@ function validate_signup(id) {
     { id: id}
   ).done(function(data){
     showModal(data);
-    $('button.validatesup[__sup_id__='+id+']').parent().parent().children().eq(5).text("Yes");
+    $('button.validatesup[__sup_id__='+id+']').parent().parent().children().eq(6).text("Yes");
     $('button.validatesup[__sup_id__='+id+']').remove();
   });
 

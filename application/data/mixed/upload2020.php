@@ -1,11 +1,11 @@
 <?php
 /**
- * application_data_mixed_upload2017
+ * application_data_mixed_upload2019
  *
  *
  *
  */
-class mixed_upload2017 extends mixed_base
+class mixed_upload2020 extends mixed_base
 {
 	public function __construct()
 	{
@@ -17,8 +17,8 @@ class mixed_upload2017 extends mixed_base
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
 		$db = database::get_instance();
 		$sql = "
-      SELECT sum(u.points) as points, u.playername, p.awards, p.avatar, p.avatar_mime FROM upload2017 u
-      LEFT JOIN `player2017` p USING (playername)
+      SELECT sum(u.points) as points, u.playername, p.awards, p.avatar, p.avatar_mime FROM upload2020 u
+      LEFT JOIN `player2020` p USING (playername)
 			WHERE p.awards IS NOT NULL AND
 			p.awards != ''
       GROUP BY playername, awards, avatar, avatar_mime ORDER BY points DESC;
@@ -33,8 +33,8 @@ class mixed_upload2017 extends mixed_base
 		$db = database::get_instance();
     $month = $db->escape($month);
 		$sql = "
-      SELECT u.playername, u.position, p.avatar, p.avatar_mime FROM upload2017 u
-      LEFT JOIN `player2017` p ON(u.playername = p.playername)
+      SELECT u.playername, u.position, p.avatar, p.avatar_mime FROM upload2020 u
+      LEFT JOIN `player2020` p ON(u.playername = p.playername)
       WHERE u.month = $month
       AND table_ = 'gold'
       AND position < 4
@@ -50,7 +50,7 @@ class mixed_upload2017 extends mixed_base
 		$db = database::get_instance();
     $month = $db->escape($month);
 		$sql = "
-      SELECT u.playername, u.position FROM upload2017 u
+      SELECT u.playername, u.position FROM upload2020 u
       WHERE u.month = $month
       AND table_ = 'gold'
       AND position < 4
@@ -63,7 +63,7 @@ class mixed_upload2017 extends mixed_base
 	public static function get_general_ranking(){
 		$db = database::get_instance();
 		$sql = "
-      SELECT sum(points) as points, playername FROM upload2017
+      SELECT sum(points) as points, playername FROM upload2020
 			WHERE TRUE
       GROUP BY playername ORDER BY points DESC;
 		";
@@ -75,7 +75,7 @@ class mixed_upload2017 extends mixed_base
 		$db = database::get_instance();
 		$month = $db->escape($month);
 		$sql = "
-      SELECT sum(points) as points, playername FROM upload2017
+      SELECT sum(points) as points, playername FROM upload2020
 			WHERE month = '$month'
       GROUP BY playername ORDER BY points DESC;
 		";
@@ -88,7 +88,7 @@ class mixed_upload2017 extends mixed_base
 		$player = $db->escape($player);
 		$month = $db->escape($month);
 		$sql = "
-      SELECT sum(points) as points FROM upload2017
+      SELECT sum(points) as points FROM upload2020
 			WHERE 
 			playername = '$player' AND
 			month = '$month'

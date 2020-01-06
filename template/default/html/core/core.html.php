@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+    <base href="https://<?php echo $_SERVER["HTTP_HOST"] ?>/">
 		<title><?=app::$config->core->title?> <?=date("Y")?></title>
 		<meta charset="utf-8"/>
 		<link href="/favicon.ico" rel="shortcut icon" />
@@ -42,7 +43,7 @@
 						<i class="glyphicon glyphicon-chevron-up"></i> Back to Top
 				</a>
 		</span>
-		<?php $ts = '?ts=20170724_1545'; ?>
+		<?php $ts = '?ts=20180429_1557'; ?>
 		<?php foreach(app::$inc->js as $filename): ?>
 		<script type="text/javascript" src="<?=cfg::$web_root?>res/js/<?=cfg::$template."/".$filename.'.js'.$ts?>"></script>
 		<?php endforeach ?>

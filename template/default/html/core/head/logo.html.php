@@ -5,5 +5,5 @@
  */
 ?>
 <div class="logo" style="margin-top: 5px;">
-	<img src="<?=cfg::$web_root?>res/pic/<?=cfg::$template?>/mcup2017_logo.jpg" alt="pokerth Monthly Cup Series 2017" />
+	<img src="<?=cfg::$web_root?>res/pic/<?=cfg::$template?>/mcup_series_2019.png" width=420" alt="pokerth Monthly Cup Series 2018" />
 </div>

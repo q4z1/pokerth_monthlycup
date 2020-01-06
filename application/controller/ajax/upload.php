@@ -81,14 +81,16 @@ class controller_ajax_upload extends controller_ajax_base
 			for($i=1;$i<=10;$i++){
 				if($players[$i] == ""){
 					continue;
-				}
+				}else{
+          $players[$i] = trim($players[$i]);
+        }
 				
 				// check if player already exists
 				$cls = "model_player" . date("Y");
 				if(is_null($cls::get_entry_by_playername($players[$i])))
 				{
 					$pl = new $cls();
-					$pl->playername = trim($players[$i]);
+					$pl->playername = $players[$i];
 					$pl->save();
 				}
 				
@@ -96,7 +98,7 @@ class controller_ajax_upload extends controller_ajax_base
 				$ul->type = 'firstround';
 				$ul->table_ = $table;
 				$ul->month = $imonth;
-				$ul->playername = trim($players[$i]);
+				$ul->playername = $players[$i];
 				$ul->position = $i;
 				$ul->points = $this->points->first->$i;
 				$ul->save();
@@ -142,7 +144,9 @@ class controller_ajax_upload extends controller_ajax_base
 			for($i=1;$i<=10;$i++){
 				if($players[$i] == ""){
 					continue;
-				}
+				}else{
+          $players[$i] = trim($players[$i]);
+        }
 				
 				// check if player already exists
 				$cls = "model_player" . date("Y");
