@@ -111,7 +111,6 @@ class controller_ajax_signup extends controller_ajax_base
 			$id = app::$request['id'];
 
 	  $cls = "model_signup" . date("Y");
-	  $cls = "model_signup2019"; // @XXX: temporary static year value
       $sup = $cls::get_entry_by_id($id);
       if(is_null($sup)){
 				app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
