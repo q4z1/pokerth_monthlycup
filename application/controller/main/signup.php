@@ -54,13 +54,15 @@ class controller_main_signup extends controller_main_base
 		//$list = $cls::get_public_valid_entries_by_month(11);
 		
 		app::$content['subs'] = array();
-		if(count($list) > 0){
-			if(count($list) >= 90){
-				// extract substitutes and splice array
-				app::$content['subs'] = array_splice($list, 90);
-				$list = array_splice($list, 0, 90);
+		if(!is_null($list)){
+			if(count($list) > 0){
+				if(count($list) >= 90){
+					// extract substitutes and splice array
+					app::$content['subs'] = array_splice($list, 90);
+					$list = array_splice($list, 0, 90);
+				}
 			}
+			app::$content['signups'] = $list;
 		}
-		app::$content['signups'] = $list;
 	}
 }

@@ -100,7 +100,7 @@ class controller_ajax_upload extends controller_ajax_base
 				$ul->month = $imonth;
 				$ul->playername = $players[$i];
 				$ul->position = $i;
-				$ul->points = $this->points->first->$i;
+				$ul->points = $this->points->first->$i + 1;
 				$ul->save();
 			}
 			app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";

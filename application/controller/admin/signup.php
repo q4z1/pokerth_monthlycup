@@ -33,7 +33,8 @@ class controller_admin_signup extends controller_admin_base
 		$list = $cls::get_entries_by_month(intval(date("m")));
 		// @XXX: temporary static month value
 		//$list = $cls::get_entries_by_month(11);
-		app::$content['signups'] = $list;
+		app::$content['signups'] = [];
+		if(!is_null($list)) app::$content['signups'] = $list;
   }
 	
 	public function randomizer(){

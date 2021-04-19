@@ -32,7 +32,7 @@ $points = app::$content['points'];
         <?php foreach($points as $pos => $column): ?>
         <tr>
           <td><?=$pos?></td>
-          <td><?=(intval($column['first'])-1)?></td>
+          <td><?=$column['first']?></td>
           <td><?=$column['bronze']?></td>
           <td><?=$column['silver']?></td>
           <td><?=$column['gold']?></td>

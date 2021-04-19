@@ -19,17 +19,17 @@ $(window).load
     }
     
     if ($('table#signups').length > 0) {
-         $("table#signups").tablesorter(
-        {
-          theme : 'bootstrap',
-          cssIcon: 'tablesorter-icon',
-          widgets : [ "uitheme" ],
-          initWidgets: true,
-          initialized : function(table){
-            $(table).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon bootstrap-icon-unsorted"></i>');
-          }
-        }
-      );
+      //    $("table#signups").tablesorter(
+      //   {
+      //     theme : 'bootstrap',
+      //     cssIcon: 'tablesorter-icon',
+      //     widgets : [ "uitheme" ],
+      //     initWidgets: true,
+      //     initialized : function(table){
+      //       $(table).find('thead .tablesorter-header-inner').append('<i class="tablesorter-icon bootstrap-icon-unsorted"></i>');
+      //     }
+      //   }
+      // );
     }
   }
 );
