@@ -1,11 +1,12 @@
 <?php
+
 /**
  * ermitteln des Wurzelverzeichnisses,
  * Definition der Verzeichnis-Konstanten
  */
-define
-(
-	'ROOT_DIR', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)+1)
+define(
+	'ROOT_DIR',
+	substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR) + 1)
 );
 define('APP_DIR', ROOT_DIR . "application" . DIRECTORY_SEPARATOR);
 define('DATA_DIR', ROOT_DIR . "application" . DIRECTORY_SEPARATOR . "data" . DIRECTORY_SEPARATOR);
@@ -19,11 +20,10 @@ define('INC_DIR', ROOT_DIR . "inc" . DIRECTORY_SEPARATOR);
  * setzen der benötigten Include-Verzeichnisse
  * für den Autoloader
  */
-set_include_path
-(
-		get_include_path() . PATH_SEPARATOR . APP_DIR	. PATH_SEPARATOR . LIB_DIR
-		. PATH_SEPARATOR . DATA_DIR. PATH_SEPARATOR . VIEW_DIR . PATH_SEPARATOR . TMPL_DIR
-		. PATH_SEPARATOR . VAR_DIR. PATH_SEPARATOR . INC_DIR. PATH_SEPARATOR
+set_include_path(
+	get_include_path() . PATH_SEPARATOR . APP_DIR	. PATH_SEPARATOR . LIB_DIR
+		. PATH_SEPARATOR . DATA_DIR . PATH_SEPARATOR . VIEW_DIR . PATH_SEPARATOR . TMPL_DIR
+		. PATH_SEPARATOR . VAR_DIR . PATH_SEPARATOR . INC_DIR . PATH_SEPARATOR
 );
 
 /*
@@ -35,28 +35,19 @@ cfg::init();
 /**** @XXX: Cron-Ablauf ****/
 $cls = "model_player" . date("Y");
 $players = $cls::get_all_entries();
-foreach($players as $player){
-  $url = "http://pokerth.net/component/pthranking/?view=pthranking&layout=profile&username=" . urlencode($player->playername);
-	//$url = "http://pokerth.net/component/pthranking/?view=pthranking&layout=profile&username=" . urlencode("sp0ck");
-  $html = file_get_contents($url);
-	$aP = strpos($html, 'src="data: ', 0);
-  if($aP !== false){
-		$aP += 11;
-		$eP = strpos($html, '"', $aP);
-		$img_data = substr($html, $aP,($eP-$aP));
-		$aP = strpos($img_data, "image", 0);
-		$eP = strpos($img_data, ";", $aP);
-		$mime = substr($img_data, $aP, ($eP-$aP));
-		$imgA = explode(",", $img_data);
-		$img = base64_decode($imgA[1]);
+foreach ($players as $player) {
+	$url = "https://pokerth.net/pthranking/player/show?username=" . urlencode($player->playername);
+	$json = json_decode(file_get_contents($url, true));
+	if ($json->player->avatar_hash != '') {
+		$url = "https://pokerth.net/images/avatars/game/" . $json->player->avatar_hash . "." . $json->player->avatar_mime;
+		$img = file_get_contents($url);
 		$player->avatar = addslashes($img);
-		$player->avatar_mime = $mime;
+		$player->avatar_mime = $json->player->avatar_mime;
 		$player->save();
-		echo "* fetched avatar from " . $player->playername . "\n";
-	}else{
-		echo "* image for " .$player->playername . " NOT found.\n";
+		echo "* fetched game avatar of " . $player->playername . "\n";
+	} else {
+		echo "x no game avatar of " . $player->playername . ".\n";
 	}
-
 }
 
 /****************************/
@@ -80,15 +71,13 @@ function __autoload($class)
 	/*
 	 * stelle fest, ob die Klassendatei existiert
 	 */
-	if
-	(
+	if (
 		(file_exists(APP_DIR . $class) === false) &&
 		(file_exists(LIB_DIR . $class) === false) &&
 		(file_exists(DATA_DIR . $class) === false) &&
 		(file_exists(VIEW_DIR . $class) === false) &&
 		(file_exists(TMPL_DIR . $class) === false)
-	)
-	{
+	) {
 		$exception = new Exception("Klassen-Datei $class wurde nicht gefunden!");
 		/*
 		 * lade exception controller
@@ -100,16 +89,12 @@ function __autoload($class)
 	/*
 	 * lade die Klassen-Datei
 	 */
-	try
-	{
+	try {
 		require_once($class);
-	}
-	catch(Exception $e)
-	{
-		throw new Exception
-		(
-			"Das Laden der Klassen-Datei $class schlug fehl! : " . $e->getMessage()
-		);
+	} catch (Exception $e) {
+		throw new Exception(
+				"Das Laden der Klassen-Datei $class schlug fehl! : " . $e->getMessage()
+			);
 	}
 	return;
 }

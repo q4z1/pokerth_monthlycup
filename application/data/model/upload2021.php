@@ -1,34 +1,34 @@
 <?php
 /**
- * application_data_model_upload2020
+ * application_data_model_upload2021
  *
  * Stellt alle Daten der Tabelle Moderator zur Verfügung
  *
  */
-class model_upload2020 extends model_base
+class model_upload2021 extends model_base
 {
 
 	public function __construct()
 	{
-		parent::__construct('upload2020');
+		parent::__construct('upload2021');
 	}
 
 	/*
 	 * get_entry_by_id()
 	 *
-	 * @param String $upload2020_id
+	 * @param String $upload2021_id
 	 *
 	 * @return Object
 	 */
-	public static function get_entry_by_id($upload2020_id)
+	public static function get_entry_by_id($upload2021_id)
 	{
-		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($upload2020_id) betreten.");
+		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($upload2021_id) betreten.");
 		return data_entry::get_by_filter
 		(
-			$table = 'upload2020',
+			$table = 'upload2021',
 			$filter = array
 			(
-				'upload2020_id' => $upload2020_id
+				'upload2021_id' => $upload2021_id
 			),
 			$single = true
 		);
@@ -37,7 +37,7 @@ class model_upload2020 extends model_base
 	public static function check_firstround_entries_by_month_table($month, $table_){
 		return data_entry::get_by_filter
 		(
-			$table = 'upload2020',
+			$table = 'upload2021',
 			$filter = array
 			(
 				'type' => 'firstround',
@@ -51,7 +51,7 @@ class model_upload2020 extends model_base
 		public static function check_final_entries_by_month_table($month, $table_){
 		return data_entry::get_by_filter
 		(
-			$table = 'upload2020',
+			$table = 'upload2021',
 			$filter = array
 			(
 				'type' => 'final',
@@ -65,7 +65,7 @@ class model_upload2020 extends model_base
 	public static function get_all_entries_by_month($month){
 		return data_entry::get_by_filter
 		(
-			$table = 'upload2020',
+			$table = 'upload2021',
 			$filter = array
 			(
 				'month' => intval($month),
@@ -84,23 +84,23 @@ class model_upload2020 extends model_base
 	public static function get_all_entries()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
-		return data_entry::get_all('upload2020', __CLASS__);
+		return data_entry::get_all('upload2021', __CLASS__);
 	}
 
 	/*
 	 * delete_entry_by_id()
 	 *
-	 * @param String $upload2020_id
+	 * @param String $upload2021_id
 	 *
 	 * @return Object
 	 */
-	public static function delete_entry_by_id($upload2020_id)
+	public static function delete_entry_by_id($upload2021_id)
 	{
-		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($upload2020_id) betreten.");
+		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."($upload2021_id) betreten.");
 		$db = database::get_instance();
-		$upload2020_id = $db->escape($upload2020_id);
+		$upload2021_id = $db->escape($upload2021_id);
 		$sql = "
-			DELETE FROM `upload2020` WHERE `upload2020_id` = $upload2020_id;
+			DELETE FROM `upload2021` WHERE `upload2021_id` = $upload2021_id;
 		";
 		return $db->query($sql);
 	}

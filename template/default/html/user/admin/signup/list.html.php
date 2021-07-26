@@ -22,7 +22,8 @@ $list = app::$content['signups'];
           <th>Date</th>
           <th>Player</th>
           <th>IP</th>
-		  <th>Fingerprint</th>
+		  <th>fp</th>
+		  <th>new fp</th>
 					<th>Accepted</th>
 					<th>Action</th>
         </tr>
@@ -36,9 +37,10 @@ $list = app::$content['signups'];
 				<tr>
 					<td><?=$i?>.</td>
 					<td><?=$sup->date?></td>
-					<td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$sup->playername?>"><?=$sup->playername?></a></td>
+					<td><a target="_blank" href="https://www.pokerth.net/player?u=<?=$sup->playername?>"><?=$sup->playername?></a></td>
 					<td><?=$sup->ip?></td>
 					<td><?=$sup->fp?></td>
+					<td><?=$sup->fpnew?></td>
 					<td><?=($sup->valid==1)?'Yes':'No'?></td>
 					<td class="text-center">
 						<button class="btn btn-danger removesup" type="submit" name="removesup" __sup_id__="<?=$sup->$sid?>">Remove</button>

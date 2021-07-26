@@ -23,7 +23,7 @@ class mixed_upload2021 extends mixed_base
 			p.awards != ''
       GROUP BY playername, awards, avatar, avatar_mime ORDER BY points DESC;
 		";
-		//debug::add_info("sql:<br /><pre>$sql</pre>");
+		debug::add_info("sql:<br /><pre>$sql</pre>");
 		return $db->get_objects($sql, __CLASS__);
 	}
   
