@@ -10,7 +10,7 @@ $i = intval(date("m"));
   <div class="col-md-10 col-md-offset-1 text-left form-group">
 		<form name="signup" id="signup" action="<?=cfg::$web_root . 'ajax/signup/'?>" method="post">
 		<fieldset>
-			<legend class="text-primary">Registration for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>, 20:00:00 CEST)</span></legend>
+			<legend class="text-primary">Registration for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y, H:i T", strtotime($cup_dates->$i))?>)</span></legend>
 		<!--<legend class="text-primary">Registration for  December Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime("2020-01-04 20:00:00"))?>)</span></legend>-->
       <div class="row">
 				<div class="col-md-12">

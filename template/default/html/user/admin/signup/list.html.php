@@ -10,7 +10,7 @@ $list = app::$content['signups'];
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 text-center">
 		<!--<h3 class="text-primary">SignUps for <?=date("F, Y")?></h3>-->
-		<h3 class="text-primary">SignUps for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime($cup_dates->$i))?>)</span></h3>
+		<h3 class="text-primary">SignUps for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y, H:i T", strtotime($cup_dates->$i))?>)</span></h3>
 	</div>
 </div>
 <div class="row">
