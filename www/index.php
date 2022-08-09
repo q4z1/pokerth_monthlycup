@@ -18,10 +18,12 @@
 /*
  * @FIXME: debug:
  */
-//echo "\$_GET:<br /><pre>" . var_export($_GET, true) . "</pre><hr />";
-//echo "\$_POST:<br /><pre>" . var_export($_POST, true) . "</pre><hr />";
-//echo "\$_REQUEST:<br /><pre>" . var_export($_REQUEST, true) . "</pre><hr />";
-//echo "\$_FILES:<br /><pre>" . var_export($_FILES, true) . "</pre><hr />";
+// echo "\$_GET:<br /><pre>" . var_export($_GET, true) . "</pre><hr />";
+// echo "\$_POST:<br /><pre>" . var_export($_POST, true) . "</pre><hr />";
+// echo "\$_REQUEST:<br /><pre>" . var_export($_REQUEST, true) . "</pre><hr />";
+// echo "\$_FILES:<br /><pre>" . var_export($_FILES, true) . "</pre><hr />";
+
+// die("Hello");
 /*
  * end debug
  */
@@ -51,6 +53,8 @@ set_include_path
 		. PATH_SEPARATOR . DATA_DIR. PATH_SEPARATOR . VIEW_DIR . PATH_SEPARATOR . TMPL_DIR
 		. PATH_SEPARATOR . VAR_DIR. PATH_SEPARATOR . INC_DIR. PATH_SEPARATOR
 );
+
+spl_autoload_register('app_autoloader');
 
 /*
  * Stelle Konfigurations-Variablen bereit
@@ -129,7 +133,7 @@ exit();
  * Ein folgender require_once Aufruf sucht in allen Verzeichnissen
  * des Include-Paths
  */
-function __autoload($class)
+function app_autoloader($class)
 {
 	$class = str_replace("_", "/", $class) . ".php";
 	/*

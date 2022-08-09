@@ -44,8 +44,8 @@ class controller_admin_signup extends controller_admin_base
 		// @XXX: temporary static month value
 		//$list = $cls::get_public_valid_entries_by_month(11);
 		app::$content['subs'] = array();
-		if(count($list) > 0){
-			if(count($list) >= 90){
+		if(count((array)$list) > 0){
+			if(count((array)$list) >= 90){
 				// extract substitutes and splice array
 				app::$content['subs'] = array_splice($list, 90);
 				$list = array_splice($list, 0, 90);

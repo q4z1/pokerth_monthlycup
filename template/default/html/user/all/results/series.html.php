@@ -7,7 +7,7 @@
 $top3 = app::$content["top3"];
 
 $cup_dates = json_decode(app::$settings["dates"]);
-$forum_links = json_decode(app::$settings["forum_links"]);
+$forum_links = array_key_exists("forum_links", app::$settings) ? json_decode(app::$settings["forum_links"]) : false;
 
 ?>
 <div class="row">
@@ -25,8 +25,10 @@ $forum_links = json_decode(app::$settings["forum_links"]);
     <h6 class="text-warning"><?=date("l, F jS Y", strtotime($cup_dates->$i))?> Cup</h6>
   </div>
   <div class="col-md-6 col-md-offset-3 text-center">
+    <?php if($forum_links): ?>
     <h6 class="text-primary"><a href="<?=$forum_links->$i?>" target="_blank">Forum thread for all results</a></h6>
   </div>
+  <?php endif; ?>
 </div>
 <div class="row">
   <div class="col-md-8 col-md-offset-2 text-center">

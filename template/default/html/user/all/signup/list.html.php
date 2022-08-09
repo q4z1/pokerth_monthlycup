@@ -24,7 +24,7 @@ $subs = app::$content['subs'];
         </tr>
       </thead>
       <tbody>
-				<?php if(count($list) > 0): ?>
+				<?php if(count((array)$list) > 0): ?>
 				<?php foreach($list as $i =>$sup): ?>
 				<tr>
 					<td><?=($i+1)?>.</td>

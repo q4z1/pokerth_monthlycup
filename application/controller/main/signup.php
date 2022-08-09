@@ -55,8 +55,8 @@ class controller_main_signup extends controller_main_base
 		
 		app::$content['subs'] = array();
 		if(!is_null($list)){
-			if(count($list) > 0){
-				if(count($list) >= 90){
+			if(count((array)$list) > 0){
+				if(count((array)$list) >= 90){
 					// extract substitutes and splice array
 					app::$content['subs'] = array_splice($list, 90);
 					$list = array_splice($list, 0, 90);

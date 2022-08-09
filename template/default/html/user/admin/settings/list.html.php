@@ -23,7 +23,7 @@ $list = app::$settings;
         </tr>
       </thead>
       <tbody>
-				<?php if(count($list) > 0): ?>
+				<?php if(count((array)$list) > 0): ?>
 				<?php foreach($list as $type => $value): ?>
 				<tr>
 					<td><strong><?=$type?></strong></td>

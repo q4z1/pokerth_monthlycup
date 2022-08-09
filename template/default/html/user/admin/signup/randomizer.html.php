@@ -13,12 +13,12 @@ $ts = time();
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-				<?php if(count($list) > 0): ?>
+				<?php if(count((array)$list) > 0): ?>
         <pre class="text-left">
 <?php $i=1; ?>
 <?php foreach($list as $sup): ?>
 <?=$sup->playername?>
-<?=($i<(count($list)))?"\n":""?>
+<?=($i<(count((array)$list)))?"\n":""?>
 <?php $i++; ?>
 <?php endforeach; ?>
         </pre>
