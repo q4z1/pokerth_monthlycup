@@ -28,7 +28,7 @@ $subs = app::$content['subs'];
 				<?php foreach($list as $i =>$sup): ?>
 				<tr>
 					<td><?=($i+1)?>.</td>
-					<td><a target="_blank" href="https://www.pokerth.net/leaderboard/<?=$sup->playername?>"><?=$sup->playername?></a></td>
+					<td><a target="_blank" href="https://www.pokerth.net/player?u=<?=$sup->playername?>"><?=$sup->playername?></a></td>
 				</tr>
 				<?php endforeach; ?>
 				<?php if(count($subs) > 0): ?>

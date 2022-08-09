@@ -18,7 +18,7 @@ $(window).load
 		// var footer_nicks_a = $('#footer_txt p').text().split(',');
 		// $(footer_nicks_a).each(function(i, item){
 		//   item = item.trim();
-		//   footer_nicks = footer_nicks.replace(item, "<a title='"+item+"' target='_blank' href='https://www.pokerth.net/leaderboard/"+item+"'>"+item+"</a>");
+		//   footer_nicks = footer_nicks.replace(item, "<a title='"+item+"' target='_blank' href='https://www.pokerth.net/player?u="+item+"'>"+item+"</a>");
 		// });
 		// $('#footer_txt p').html(footer_nicks);
 		
