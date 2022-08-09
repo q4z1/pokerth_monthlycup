@@ -117,7 +117,13 @@ class controller_ajax_upload extends controller_ajax_base
 		$jObj = app::$request['json'];
 		$month = $jObj->month;
 		$table = $jObj->table;
-		$players = $jObj->players;
+
+		$log = new logparser();
+		$game = $log->process_log($jObj->url);
+
+		if($game['status'] == 'error' || isset($jObj->preview)) die(json_encode($game));
+
+		$players = $game['data']['player_list'][1];
 
 		// check if upload is already done
 		$imonth = 0;
@@ -137,12 +143,7 @@ class controller_ajax_upload extends controller_ajax_base
 			return;
 		}
 		app::$content['modal']["content"] = "";
-		for ($i = 1; $i <= 10; $i++) {
-			if ($players[$i] == "") {
-				continue;
-			} else {
-				$players[$i] = trim($players[$i]);
-			}
+		for ($i = 0; $i < count($players); $i++) {
 
 			// check if player already exists
 			$cls = "model_player" . date("Y");
@@ -157,8 +158,8 @@ class controller_ajax_upload extends controller_ajax_base
 			$ul->table_ = $table;
 			$ul->month = $imonth;
 			$ul->playername = $players[$i];
-			$ul->position = $i;
-			$ul->points = $this->points->final->$table->$i;
+			$ul->position = ($i+1);
+			$ul->points = $this->points->final->$table->{($i+1)};
 			$ul->save();
 		}
 		app::$content['modal']["heading"] = "<div class='text-success'>Success!</div>";

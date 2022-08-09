@@ -124,8 +124,8 @@ function validate_firstround() {
 				+ "Points</th></tr></thead><tbody>";
 			for (var i = 0; i < players.length; i++) {
 				modal_text += "<tr><td>"
-					+ (i+1) + ".</td><td>" + players[i]
-					+ "</td><td>" + points.first[(i+1)]
+					+ (i + 1) + ".</td><td>" + players[i]
+					+ "</td><td>" + points.first[(i + 1)]
 					+ "</td></tr>";
 			}
 			modal_text += "</tbody></table></div>";
@@ -163,7 +163,7 @@ function validate_firstround() {
 					JSON.stringify(jObj)
 				).done(function (data) { showModal(data) });
 			});
-		}else{
+		} else {
 			showModal(data.data);
 		}
 
@@ -176,54 +176,72 @@ function validate_final() {
 		$('.modal-backdrop').remove();
 	}
 
-	var players = new Array();
-	var modal_text = "<div class='row'>"
-		+ "<div class='col-md-12'><p>Monthly Cup - <strong>"
-		+ $('select#month').val() + "</strong> -  <strong>" + $('select#table option:selected').text() + "Table"
-		+ "</strong>:</p>"
-		+ "<table class='table table-hover table-bordered table-striped'><thead><tr'><th>Pos.</th>"
-		+ "<th>Player</th><th>"
-		+ "Points</th></tr></thead><tbody>";
-	for (var i = 1; i <= 10; i++) {
-		players[i] = $('input#player' + i).val();
-		modal_text += "<tr><td>"
-			+ i + ".</td><td>" + players[i]
-			+ "</td><td>" + points["final"][$('select#table').val()][i]
-			+ "</td></tr>";
+
+	jObj = {
+		"month": $('select#month').val(),
+		"table": $('select#table').val(),
+		"url": $('input#logLink').val(),
+		"preview": true,
 	}
-	modal_text += "</tbody></table></div>";
-	month = $('#month').val();
-	table = $('#table').val();
+	$.post(
+		$('form#final').attr('action'),
+		JSON.stringify(jObj)
+	).done(function (data) {
+		// showModal(data)
+		data = JSON.parse(data);
+		if (data.status == 'success') {
+			var players = data.data.player_list[1];
 
-	var modal_header = "The following upload will be performed:";
-	var modal = "<div id='modal' class='modal fade' role='dialog'>"
-		+ "<div class='modal-dialog modal-lg'><div class='modal-content'>"
-		+ "<div class='modal-header'><h4 class='modal-title'>"
-		+ modal_header + "</h4></div><div class='modal-body'>"
-		+ modal_text + "</div><div class='modal-footer'>"
-		+ "<button type='button' class='btn btn-danger'"
-		+ " data-dismiss='modal' id='cancel'>Cancel</button>"
-		+ "<button type='button' class='btn btn-success'"
-		+ " data-dismiss='modal' id='upload'>Upload</button>"
-		+ "</div></div></div>";
-	$(".middle").append(modal);
-	$('#modal').modal();
+			var modal_text = "<div class='row'>"
+				+ "<div class='col-md-12'><p>Monthly Cup - <strong>"
+				+ $('select#month').val() + "</strong> -  <strong>" + $('select#table option:selected').text() + "Table"
+				+ "</strong>:</p>"
+				+ "<table class='table table-hover table-bordered table-striped'><thead><tr'><th>Pos.</th>"
+				+ "<th>Player</th><th>"
+				+ "Points</th></tr></thead><tbody>";
+			for (var i = 0; i < players.length; i++) {
+				modal_text += "<tr><td>"
+					+ (i+1) + ".</td><td>" + players[i]
+					+ "</td><td>" + points["final"][$('select#table').val()][(i+1)]
+					+ "</td></tr>";
+			}
+			modal_text += "</tbody></table></div>";
+			month = $('#month').val();
+			table = $('#table').val();
 
-	$('button#cancel').click(function () {
-		$('button#upload').unbind('click');
-		$('#modal').modal("hide");
-	});
+			var modal_header = "The following upload will be performed:";
+			var modal = "<div id='modal' class='modal fade' role='dialog'>"
+				+ "<div class='modal-dialog modal-lg'><div class='modal-content'>"
+				+ "<div class='modal-header'><h4 class='modal-title'>"
+				+ modal_header + "</h4></div><div class='modal-body'>"
+				+ modal_text + "</div><div class='modal-footer'>"
+				+ "<button type='button' class='btn btn-danger'"
+				+ " data-dismiss='modal' id='cancel'>Cancel</button>"
+				+ "<button type='button' class='btn btn-success'"
+				+ " data-dismiss='modal' id='upload'>Upload</button>"
+				+ "</div></div></div>";
+			$(".middle").append(modal);
+			$('#modal').modal();
 
-	$('button#upload').click(function () {
-		$('button#cancel').unbind('click');
-		jObj = {
-			"month": $('select#month').val(),
-			"table": $('select#table').val(),
-			"players": players
+			$('button#cancel').click(function () {
+				$('button#upload').unbind('click');
+				$('#modal').modal("hide");
+			});
+
+			$('button#upload').click(function () {
+				$('button#cancel').unbind('click');
+				jObj = {
+					"month": $('select#month').val(),
+					"table": $('select#table').val(),
+					"url": $('input#logLink').val(),
+				}
+				$.post(
+					$('form#final').attr('action'),
+					JSON.stringify(jObj)
+				).done(function (data) { showModal(data) });
+			});
+		} else {
+			showModal(data.data);
 		}
-		$.post(
-			$('form#final').attr('action'),
-			JSON.stringify(jObj)
-		).done(function (data) { showModal(data) });
 	});
 }
