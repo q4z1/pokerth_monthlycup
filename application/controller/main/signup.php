@@ -27,7 +27,7 @@ class controller_main_signup extends controller_main_base
 	public function run()
 	{
 		// debug::add_info("(".__FILE__.")<b>".__CLASS__."</b>::".__FUNCTION__."() betreten.");
-		if(count(app::$param) > 0 && method_exists($this, app::$param[0]))
+		if(count((array)app::$param) > 0 && method_exists($this, app::$param[0]))
 		{
 			$this->{app::$param[0]}();
 		}

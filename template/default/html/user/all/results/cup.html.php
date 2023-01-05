@@ -38,7 +38,7 @@ $stdgs = app::$content["standings"];
       </thead>
       <tbody>
         <!-- 1st round -->
-        <?php if(count($stdgs) > 0): ?>
+        <?php if(count((array)$stdgs) > 0): ?>
         <?php for($i=1;$i<=10;$i++): ?>
         <?php foreach($stdgs as $table): ?>
         <?php if($table->type != "firstround" && $table->month != intval($last_month)): ?>
