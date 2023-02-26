@@ -5,7 +5,7 @@
  */
 $cup_dates = json_decode(app::$settings["dates"]);
 $i = intval(date("m"));
-$list = app::$content['signups'];
+$list = array_key_exists('signups', app::$content) ? app::$content['signups'] : null;
 $subs = app::$content['subs'];
 ?>
 <div class="row">

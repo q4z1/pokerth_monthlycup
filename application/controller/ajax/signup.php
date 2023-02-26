@@ -68,9 +68,9 @@ class controller_ajax_signup extends controller_ajax_base
 	// @XXX: temporary static month value
 	// $sup->month = 12;
 	
-	$sup->fp = app::$request['fp'];
+	$sup->fp = array_key_exists('fp', app::$request) ? app::$request['fp'] : null;
 	
-	$sup->fpnew = app::$request['fpnew'];
+	$sup->fpnew = array_key_exists('fpnew', app::$request) ? app::$request['fpnew'] : null;
 	
 	$sup->ip = $_SERVER['REMOTE_ADDR'];
 	// @XXX: cloudflare
