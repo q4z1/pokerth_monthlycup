@@ -26,6 +26,8 @@ set_include_path(
 		. PATH_SEPARATOR . VAR_DIR . PATH_SEPARATOR . INC_DIR . PATH_SEPARATOR
 );
 
+spl_autoload_register('ava_autoloader');
+
 /*
  * Stelle Konfigurations-Variablen bereit
  */
@@ -65,7 +67,7 @@ foreach ($players as $player) {
  * Ein folgender require_once Aufruf sucht in allen Verzeichnissen
  * des Include-Paths
  */
-function __autoload($class)
+function ava_autoloader($class)
 {
 	$class = str_replace("_", "/", $class) . ".php";
 	/*

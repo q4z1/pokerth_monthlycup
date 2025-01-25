@@ -35,7 +35,7 @@ $plyrs = app::$content['ranking'];
           </td>
           <td><a target="_blank" href="https://www.pokerth.net/player?u=<?=$plyr->playername?>"><?=$plyr->playername?></a></td>
           <td><?=$plyr->points?></td>
-          <td>
+          <td class="award">
             <?php foreach($plyr->awds as $award): ?>
             <?=$award?>
             <?php endforeach; ?>

@@ -34,18 +34,30 @@ class controller_ajax_signup extends controller_ajax_base
 		{
 			$this->{app::$param[0]}();
 		}else{
-      $this->do_signup();
-    }
+			$this->do_signup();
+		}
 		$this->generate_special_output($this->output_type);
 	}
   
   public function do_signup(){
     view::set_special("ajax", "browser/ajax/modal.html");
-    if(!array_key_exists("playername", app::$request) && app::$request['playername'] == ""){
+    if(!array_key_exists("playername", app::$request) || app::$request['playername'] == ""){
       app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
       app::$content['modal']["content"] = "No playername given!";
       return;
     }
+
+	// @TODO: check if player exists in pokerth db
+	$player = trim(app::$request['playername']);
+	$db = database::get_instance();
+	$sql = "SELECT * FROM pokerth_ranking.player where username = \"" . $player . "\";";
+	$result = $db->get_assoc($sql);
+	if(!is_array($result)){
+		app::$content['modal']["heading"] = "<div class='text-danger'>Fail!</div>";
+		app::$content['modal']["content"] = "Playername $player does not exist at PokerTH!";
+		return;
+	}
+
 	$cls = "model_signup" . date("Y");
 	
 	$sup = $cls::get_entry_by_month_playername(intval(date("m")), trim(app::$request['playername']));

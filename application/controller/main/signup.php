@@ -31,10 +31,10 @@ class controller_main_signup extends controller_main_base
 		{
 			$this->{app::$param[0]}();
 		}
-    else
+		else
 		{
-      $this->show_signup();
-    }
+			$this->show_signup();
+		}
 		$this->generate_html_output();
 	}
 	

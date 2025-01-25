@@ -5,5 +5,5 @@
  */
 ?>
 <div class="logo" style="margin-top: 5px;">
-	<img src="<?=cfg::$web_root?>res/pic/<?=cfg::$template?>/mcup_2024.png" width=420" alt="PokerTH Monthly Cup Series 2024" />
+	<img src="<?=cfg::$web_root?>res/pic/<?=cfg::$template?>/mcup2025_theme_800x457.png" width=800" alt="PokerTH Monthly Cup Series 2025" />
 </div>

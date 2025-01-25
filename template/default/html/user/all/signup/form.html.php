@@ -5,24 +5,37 @@
  */
 $cup_dates = json_decode(app::$settings["dates"]);
 $i = intval(date("m"));
+
+$closeTime = strtotime($cup_dates->$i) - 60*60;
+
+$show = time() < $closeTime ? true : false; 
 ?>
 <div class="row">
   <div class="col-md-10 col-md-offset-1 text-left form-group">
 		<form name="signup" id="signup" action="<?=cfg::$web_root . 'ajax/signup/'?>" method="post">
 		<fieldset>
 			<legend class="text-primary">Registration for <?=date("F", strtotime($cup_dates->$i))?> Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y, H:i T", strtotime($cup_dates->$i))?>)</span></legend>
-		<!--<legend class="text-primary">Registration for  December Cup (scheduled for: <span class="text-success"><?=date("l, F jS Y", strtotime("2020-01-04 20:00:00"))?>)</span></legend>-->
+      <?php if ($show): ?>
       <div class="row">
 				<div class="col-md-12">
           <label for="playername">Playername <span class="text-danger">(case-sensitive!)</span>:</label>
           <input type="text" name="playername" id="playername" class="form-control" />
         </div>
       </div>
+      <?php else: ?>
+        <div class="row">
+				<div class="col-md-12">
+          <h4 style="color: red">Registration is closed.<br /><br />
+          Please leave a message in shoutbox, if you want to participate ... usually you will get a seat as substitute.</h4>
+        </div>
+      </div>        
+      <?php endif; ?>
       <div class="row">
         <div class="col-md-12">
           <br />
         </div>
       </div>
+      <?php if ($show): ?>
       <div class="row">
 		<div class="col-md-6">&nbsp</div>
         <div class="col-md-6">
@@ -37,6 +50,7 @@ $i = intval(date("m"));
           <button class="btn btn-success" type="submit" name="submit" id="submit">Register</button>
         </div>
       </div>
+      <?php endif; ?>
     </fieldset>
     </form>
   </div>

@@ -74,3 +74,7 @@ th.avatar, td.avatar{
 td.avatar img{
 	width: 120px;
 }
+
+td.award img{
+	width: 130px;
+}
