@@ -26,7 +26,7 @@ $show = time() < $closeTime ? true : false;
         <div class="row">
 				<div class="col-md-12">
           <h4 style="color: red">Registration is closed.<br /><br />
-          Please leave a message in shoutbox, if you want to participate ... usually you will get a seat as substitute.</h4>
+          Please leave a message in Lobby, if you want to participate ... usually you will get a seat as substitute.</h4>
         </div>
       </div>        
       <?php endif; ?>
