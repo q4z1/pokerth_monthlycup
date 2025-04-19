@@ -66,7 +66,7 @@ $months = array(
           <td><?=$months[$awrd->month]?></td>
           <td><?=$types[$awrd->type]?></td>
           <td><?=$awrd->filename?></td>
-          <td class="text-center"><img style="width: 150px;" src="/res/award/?type=<?=$awrd->type?>&month=<?=$awrd->month?>" /></td>
+          <td class="text-center"><img class="lazy" style="width: 150px;" data-src="/res/award/?type=<?=$awrd->type?>&month=<?=$awrd->month?>" /></td>
           <td class="text-center">
             <!-- @XXX: necessary?
             <button class="btn btn-warning reupload" type="submit" name="reupload" id="reupload" __awrd_id__="<?=$awrd->$aid?>">Re-Upload</button><br />-->

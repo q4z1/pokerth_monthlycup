@@ -44,7 +44,7 @@ $forum_links = array_key_exists("forum_links", app::$settings) ? json_decode(app
         <strong><a target="_blank" href="https://www.pokerth.net/player?u=<?=$top3[$i][0]->playername?>"><?=$top3[$i][0]->playername?></a></strong>
       </div>
       <div class="col-md-4 text-center">
-        <img src="/res/award/?type=gold2nd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 2nd" />
+        <img class="lazy" data-src="/res/award/?type=gold2nd&month=<?=$i?>&year=<?=$this->year?>" alt="Gold 2nd" />
         <br />
         <strong><a target="_blank" href="https://www.pokerth.net/player?u=<?=$top3[$i][1]->playername?>"><?=$top3[$i][1]->playername?></a></strong>
       </div>

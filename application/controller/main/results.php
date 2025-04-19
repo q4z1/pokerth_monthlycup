@@ -80,7 +80,8 @@ class controller_main_results extends controller_main_base
 					foreach($awds as $awd){
 						$cls = "model_award" . $this->year;
 						$award = $cls::get_entry_by_month_type($awd->month, $awd->type);
-						$awards[] = '<img src="data:'.$award->mime.';base64,'.base64_encode(stripslashes($award->file)).'" alt="Award '.$awd->type.'">';
+						$awards[] = '<img class="lazy" style="width: 150px;" data-src="/res/award/?type=' . $award->type . '&month=' . $award->month . '" />';
+						//$awards[] = '<img src="data:'.$award->mime.';base64,'.base64_encode(stripslashes($award->file)).'" alt="Award '.$awd->type.'">';
 					}
 					$pl->awds = $awards;
 					$plyr2[] = $pl;
