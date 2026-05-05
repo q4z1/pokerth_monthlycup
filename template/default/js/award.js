@@ -1,5 +1,4 @@
-$(window).load
-(
+$(window).on('load',
 	function()
 	{
     if ($('button.reupload').length > 0) {

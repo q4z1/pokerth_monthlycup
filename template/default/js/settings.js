@@ -1,5 +1,4 @@
-$(window).load
-(
+$(window).on('load',
 	function()
 	{
     if ($('button.editset').length > 0) {

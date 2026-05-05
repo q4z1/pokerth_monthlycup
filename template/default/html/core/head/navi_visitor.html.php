@@ -138,6 +138,19 @@ if ($last_month < 1) {
 									<li><a href="/main/results/points/?year=2024">Cup Ranking Points</a></li>
 								</ul>
 							</li>
+							<li>
+								<a class="trigger right-caret" href="#">Archive 2025</a>
+								<ul class="dropdown-menu sub-menu">
+									<?php for ($i = 1; $i <= 12; $i++) : ?>
+										<li><a href="/main/results/cup/<?= $i ?>/?year=2023"><?= date("F", strtotime(date("2025-") . ($i) . "-01")) ?> Cup Standings</a></li>
+									<?php endfor; ?>
+									<li role="separator" class="divider"></li>
+									<li><a href="/main/results/series/?year=2025">Series Results</a></li>
+									<li><a href="/main/results/rankings/?year=2025">Series Rankings</a></li>
+									<li><a href="/main/results/halloffame/?year=2025">Hall-Of-Fame</a></li>
+									<li><a href="/main/results/points/?year=2025">Cup Ranking Points</a></li>
+								</ul>
+							</li>
 							<li role="separator" class="divider"></li>
 							<?php for ($i = 1; $i <= intval(date("m")); $i++) : ?>
 								<li><a href="/main/results/cup/<?= $i ?>/"><?= date("F", strtotime(date("Y-") . ($i) . "-01")) ?> Cup Standings</a></li>

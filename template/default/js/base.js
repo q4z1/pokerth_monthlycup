@@ -4,9 +4,8 @@
  */
 var hideNoticeTime = 3000; // 3 seconds
 
-$(window).load
-	(
-		function () {
+$(window).on('load',
+	function () {
 			$('#backtop').click(function (event) {
 				event.preventDefault();
 				$('html,body').animate({ scrollTop: 0 }, 'slow');

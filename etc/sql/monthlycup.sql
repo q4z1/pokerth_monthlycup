@@ -54,7 +54,7 @@ CREATE TABLE `configuration` (
 INSERT INTO `configuration` (`configuration_id`, `group`, `key`, `value`) VALUES
 (1,	'leftnavi',	'Startseite',	''),
 (2,	'core',	'title',	'PokerTH Monthly Cup'),
-(3,	'head',	'js',	'jquery-1.12.0.min'),
+(3,	'head',	'js',	'jquery-3.7.1.min'),
 (4,	'head',	'css',	'font-awesome.min'),
 (5,	'head',	'js',	'base'),
 (6,	'head',	'css',	'base'),

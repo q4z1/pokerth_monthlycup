@@ -52,8 +52,7 @@ var points = {
 	}
 }
 
-$(window).load
-	(
+$(window).on('load',
 		function () {
 			//alert("upload.js loaded");
 			$('button#submit').click(function (event) {

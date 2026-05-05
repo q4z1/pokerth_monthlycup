@@ -1,5 +1,4 @@
-$(window).load
-(
+$(window).on('load',
 	function()
 	{
     if ($('button.validatesup').length > 0) {
