@@ -1,0 +1,18 @@
+# monthlycup.pokerth.net
+#
+# Bewusst eine statische Datei im Docroot: nginx liefert sie ueber
+# "try_files $uri" direkt aus, bevor die Anfrage die Anwendung erreicht.
+# Ohne sie fiel /robots.txt auf index.php durch, und die App antwortete mit
+# 500 statt 404. Ein 5xx auf robots.txt wertet ein Crawler als "Domain
+# voruebergehend gesperrt" und stellt das Crawlen der ganzen Domain ein.
+# Gemessen am 18.08.2026: 42 solcher Abrufe in 21 Stunden, alle mit 500.
+
+User-agent: *
+
+# Backend und die JSON-Endpunkte gehoeren nicht in den Index. Beides sind
+# eigene Controller der Anwendung (application/controller/admin bzw. /ajax).
+Disallow: /admin/
+Disallow: /ajax/
+
+# Alles uebrige ist oeffentlich: /main/ traegt die Ergebnisse, Cups,
+# Ranglisten und Serien, /res/ die Bilder, Skripte und Stylesheets.
