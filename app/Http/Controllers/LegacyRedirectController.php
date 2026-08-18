@@ -17,11 +17,11 @@ class LegacyRedirectController extends Controller
         $query = $request->only('year');
 
         return match ($action) {
-            'cup' => redirect()->route('results.cup', array_filter(['month' => $month]) + $query),
-            'rankings' => redirect()->route('results.rankings', $query),
-            'halloffame' => redirect()->route('results.halloffame', $query),
-            'points' => redirect()->route('results.points', $query),
-            default => redirect()->route('results.series', $query),
+            'cup' => redirect()->route('results.cup', array_filter(['month' => $month]) + $query, 301),
+            'rankings' => redirect()->route('results.rankings', $query, 301),
+            'halloffame' => redirect()->route('results.halloffame', $query, 301),
+            'points' => redirect()->route('results.points', $query, 301),
+            default => redirect()->route('results.series', $query, 301),
         };
     }
 

@@ -1,18 +1,38 @@
-# monthlycup.pokerth.net
+# monthlycup.pokerth.net — PokerTH Monthly Cup
 #
-# Bewusst eine statische Datei im Docroot: nginx liefert sie ueber
-# "try_files $uri" direkt aus, bevor die Anfrage die Anwendung erreicht.
-# Ohne sie fiel /robots.txt auf index.php durch, und die App antwortete mit
-# 500 statt 404. Ein 5xx auf robots.txt wertet ein Crawler als "Domain
-# voruebergehend gesperrt" und stellt das Crawlen der ganzen Domain ein.
-# Gemessen am 18.08.2026: 42 solcher Abrufe in 21 Stunden, alle mit 500.
+# Neu gefasst am 2026-08-18, nachdem die Seite auf Laravel umgestellt wurde.
+# Die Vorgaenger-Fassung von heute Nachmittag sperrte /admin/ und /ajax/ — das
+# waren die Controller der alten Eigenbau-App und existieren nicht mehr.
+#
+# Regeln abgeleitet aus "php artisan route:list": 30 oeffentliche gegen
+# 7 login-pflichtige GET-Routen.
 
 User-agent: *
 
-# Backend und die JSON-Endpunkte gehoeren nicht in den Index. Beides sind
-# eigene Controller der Anwendung (application/controller/admin bzw. /ajax).
-Disallow: /admin/
-Disallow: /ajax/
+# Verwaltung. Deckt auch die Legacy-Weiterleitungen ab (/admin/signup,
+# /admin/award/edit, /admin/upload/finaltable ...), die auf ihre jeweils
+# auth-geschuetzten Gegenstuecke zeigen.
+Disallow: /admin
 
-# Alles uebrige ist oeffentlich: /main/ traegt die Ergebnisse, Cups,
-# Ranglisten und Serien, /res/ die Bilder, Skripte und Stylesheets.
+# Anmeldung und Abmeldung tragen keinen Inhalt
+Disallow: /login$
+Disallow: /main/logout
+
+# Nutzereinstellungen, keine Inhaltsseite
+Disallow: /table-settings
+
+# Health-Check von Laravel
+Disallow: /up$
+
+# Bewusst offen und nicht gesperrt:
+#
+#   /results /results/cup/* /results/rankings /results/points
+#   /results/halloffame /results/series /registration /signups
+#   /media/* /res/* /storage/*
+#
+# ebenso die alten /main/...-URLs: die leiten auf ihre neuen Entsprechungen
+# weiter, und ein Crawler muss ihnen folgen duerfen, damit er die neuen
+# Adressen ueberhaupt lernt. Sperren wuerde die Umstellung verschleppen.
+#
+# Kein Sitemap-Eintrag: es gibt noch keine sitemap.xml. Sobald eine da ist,
+# gehoert hier "Sitemap: https://monthlycup.pokerth.net/sitemap.xml" hin.

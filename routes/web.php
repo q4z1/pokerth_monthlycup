@@ -85,10 +85,16 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 | Redirects for the URLs of the legacy application
 |--------------------------------------------------------------------------
 */
-Route::redirect('/main', '/');
-Route::redirect('/main/settings', '/table-settings');
-Route::redirect('/main/signup', '/registration');
-Route::redirect('/main/signup/show', '/signups');
+// Inhaltsseiten: dauerhaft (301). Die Umstellung ist endgueltig, damit gibt
+// Google die alte Adresse auf, uebertraegt die Linkkraft und ersetzt sie im
+// Index. Die beiden folgenden Gruppen bleiben bewusst temporaer (302):
+// /main/logout ist eine Aktion, keine Inhaltsseite, und die /admin-Ziele sind
+// interne Adressen, die sich noch verschieben koennen — ein 301 haengt dann
+// dauerhaft im Browser-Cache der Verwalter fest.
+Route::permanentRedirect('/main', '/');
+Route::permanentRedirect('/main/settings', '/table-settings');
+Route::permanentRedirect('/main/signup', '/registration');
+Route::permanentRedirect('/main/signup/show', '/signups');
 Route::redirect('/main/logout', '/');
 Route::redirect('/admin/signup', '/admin/signups');
 Route::redirect('/admin/signup/randomizer', '/admin/randomizer');
