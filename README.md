@@ -105,6 +105,42 @@ php artisan mcup:fetch-avatars   # pull the PokerTH game avatars (scheduled week
 The scheduler entry lives in `routes/console.php`; run it with a single cron
 entry: `* * * * * php artisan schedule:run`.
 
+## Front end size
+
+Element Plus is only imported per component, from its own module paths:
+
+```js
+import { ElButton } from 'element-plus/es/components/button/index';
+```
+
+Named imports from the package root (`from 'element-plus'`) do **not** tree
+shake — the barrel drags in every component, and the bundle stays at ~920 kB no
+matter how few components are named. The same applies to the icons: only the
+ones in use are imported, not the full set of roughly a thousand.
+
+Because Blade templates are not scanned by any bundler plugin, every component
+used in a `.blade.php` file must be listed in `resources/js/app.js`. A missing
+entry leaves a raw `<el-…>` element in the DOM. This check catches that:
+
+```bash
+node -e "…"   # see the component audit in the project history
+```
+
+Result of the trimming:
+
+| chunk        | before   | after   |
+|--------------|----------|---------|
+| element-plus | 936 kB   | 480 kB  |
+| vue          | 179 kB   | 184 kB  |
+| app          | 96 kB    | 93 kB   |
+| **total JS** | 1 353 kB | 757 kB  |
+| gzip         | 436 kB   | 254 kB  |
+
+Vendor code sits in its own chunks, so a deploy that only changes application
+code leaves the Element Plus chunk in the browser cache. nginx serves
+`/build` with `Cache-Control: public, immutable` (the filenames are
+content-hashed) and fonts/images with a 30 day lifetime.
+
 ## Development
 
 ```bash

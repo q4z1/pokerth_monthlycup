@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Table Settings')
+@section('description', 'Game settings used at the PokerTH Monthly Cup: blinds, start cash, timeouts for first round and final tables.')
 
 @section('content')
 <h1 class="page-title">Table Settings</h1>

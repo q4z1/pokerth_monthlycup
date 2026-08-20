@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus/es/components/message/index';
 
 export default {
     props: {

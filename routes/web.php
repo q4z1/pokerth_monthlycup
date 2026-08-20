@@ -11,6 +11,7 @@ use App\Http\Controllers\LegacyRedirectController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ResultController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,8 @@ Route::prefix('results')->name('results.')->group(function () {
     Route::get('/halloffame', [ResultController::class, 'hallOfFame'])->name('halloffame');
     Route::get('/points', [ResultController::class, 'points'])->name('points');
 });
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/media/award/{award}', [MediaController::class, 'award'])->name('award.image');
 Route::get('/media/avatar/{player}', [MediaController::class, 'avatar'])->name('player.avatar');

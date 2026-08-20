@@ -4,10 +4,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name')) {{ $navSelectedYear }}</title>
+
+    @php($pageTitle = trim(($__env->yieldContent('title') ?: config('app.name')).' '.$navSelectedYear))
+    @php($pageDescription = $__env->yieldContent('description')
+        ?: 'Results, rankings and registration for the PokerTH Monthly Cup series.')
+
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/mcup_2026_theme.jpg') }}">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/favicon-180.png') }}">
+
+    {{-- Preload the webfont so the first paint already uses Nunito instead of
+         rendering in the fallback face and swapping afterwards. --}}
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ asset('fonts/nunito-latin.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ asset('fonts/nunito-latin-ext.woff2') }}">
+
     @vite(['resources/js/app.js', 'resources/sass/app.scss'])
 </head>
 <body>
@@ -20,7 +42,7 @@
                 </button>
             </div>
 
-            <div class="main-navbar-end">
+            <div class="main-navbar-end" v-cloak>
                 <el-tooltip content="Switch theme" placement="bottom-end">
                     <el-button circle @click="toggleTheme">
                         <el-icon><moon v-if="theme === 'light'"></moon><sunny v-else></sunny></el-icon>
@@ -45,7 +67,7 @@
                 </el-dropdown>
             </div>
 
-            <div :class="['main-navbar-collapse', { 'is-open': mobileMenuOpen }]">
+            <div :class="['main-navbar-collapse', { 'is-open': mobileMenuOpen }]" v-cloak>
                 <el-menu mode="horizontal" :ellipsis="!mobileMenuOpen" style="width:100%;" class="main-navbar-items">
                     @auth
                     <el-sub-menu index="admin">
@@ -59,21 +81,37 @@
                     </el-sub-menu>
                     @endauth
 
+                    {{-- One Results menu, as the legacy navigation had it: the
+                         running season at the top, every earlier season in its
+                         own nested entry. Seasons and their cups come from the
+                         database, so a new year needs no code change. --}}
                     <el-sub-menu index="results">
-                        <template v-slot:title><el-icon><notebook></notebook></el-icon>&nbsp;Results</template>
-                        @for($m = 1; $m <= $navLastMonth; $m++)
-                        <el-menu-item index="cup-{{ $m }}"><a href="{{ route('results.cup', ['month' => $m, 'year' => $navSelectedYear]) }}">{{ $navMonths[$m] }} Cup Standings</a></el-menu-item>
-                        @endfor
-                        <el-menu-item index="series" divided><a href="{{ route('results.series', ['year' => $navSelectedYear]) }}">Series Results</a></el-menu-item>
-                        <el-menu-item index="rankings"><a href="{{ route('results.rankings', ['year' => $navSelectedYear]) }}">Series Rankings</a></el-menu-item>
-                        <el-menu-item index="hof"><a href="{{ route('results.halloffame', ['year' => $navSelectedYear]) }}">Hall of Fame</a></el-menu-item>
-                        <el-menu-item index="points"><a href="{{ route('results.points', ['year' => $navSelectedYear]) }}">Cup Ranking Points</a></el-menu-item>
-                    </el-sub-menu>
+                        <template v-slot:title>
+                            <el-icon><notebook></notebook></el-icon>&nbsp;Results
+                            @if($navSelectedYear !== $navCurrentYear)&nbsp;<strong>{{ $navSelectedYear }}</strong>@endif
+                        </template>
 
-                    <el-sub-menu index="archive">
-                        <template v-slot:title><el-icon><files></files></el-icon>&nbsp;Archive</template>
+                        @foreach($navSeasonMonths[$navCurrentYear] ?? [] as $m)
+                        <el-menu-item index="cup-{{ $m }}"><a href="{{ route('results.cup', ['month' => $m]) }}">{{ $navMonths[$m] }} Cup Standings</a></el-menu-item>
+                        @endforeach
+
+                        <el-menu-item index="series" divided><a href="{{ route('results.series') }}">Series Results</a></el-menu-item>
+                        <el-menu-item index="rankings"><a href="{{ route('results.rankings') }}">Series Rankings</a></el-menu-item>
+                        <el-menu-item index="hof"><a href="{{ route('results.halloffame') }}">Hall of Fame</a></el-menu-item>
+                        <el-menu-item index="points"><a href="{{ route('results.points') }}">Cup Ranking Points</a></el-menu-item>
+
                         @foreach($navSeasons as $season)
-                        <el-menu-item index="archive-{{ $season }}"><a href="{{ route('results.series', ['year' => $season]) }}">Season {{ $season }}</a></el-menu-item>
+                        @continue($season === $navCurrentYear)
+                        <el-sub-menu index="season-{{ $season }}">
+                            <template v-slot:title><el-icon><files></files></el-icon>&nbsp;Season {{ $season }}</template>
+                            @foreach($navSeasonMonths[$season] ?? [] as $m)
+                            <el-menu-item index="cup-{{ $season }}-{{ $m }}"><a href="{{ route('results.cup', ['month' => $m, 'year' => $season]) }}">{{ $navMonths[$m] }} Cup Standings</a></el-menu-item>
+                            @endforeach
+                            <el-menu-item index="series-{{ $season }}" divided><a href="{{ route('results.series', ['year' => $season]) }}">Series Results</a></el-menu-item>
+                            <el-menu-item index="rankings-{{ $season }}"><a href="{{ route('results.rankings', ['year' => $season]) }}">Series Rankings</a></el-menu-item>
+                            <el-menu-item index="hof-{{ $season }}"><a href="{{ route('results.halloffame', ['year' => $season]) }}">Hall of Fame</a></el-menu-item>
+                            <el-menu-item index="points-{{ $season }}"><a href="{{ route('results.points', ['year' => $season]) }}">Cup Ranking Points</a></el-menu-item>
+                        </el-sub-menu>
                         @endforeach
                     </el-sub-menu>
 

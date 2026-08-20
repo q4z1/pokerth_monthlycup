@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Signups')
+@section('description', 'All players registered for the upcoming PokerTH Monthly Cup, including substitutes.')
 
 @section('content')
 <signup-list-component

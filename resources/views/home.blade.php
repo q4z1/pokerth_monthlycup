@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'PokerTH Monthly Cup')
+@section('description', 'The PokerTH Monthly Cup series: cup dates, registration, results and the season ranking.')
 
 @section('content')
 <div class="site-hero">

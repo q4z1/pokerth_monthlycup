@@ -24,13 +24,23 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $selected = Season::resolve(request()->query('year'));
 
+            $current = Season::current();
+
+            // Every season and the cups it actually holds, so the navigation is
+            // built from the data instead of a hard coded list of years.
+            $seasons = [];
+            foreach (Season::years() as $year) {
+                $seasons[$year] = Season::monthsWithResults($year);
+            }
+
             $view->with([
-                'navSeasons' => Season::years(),
-                'navCurrentYear' => Season::current(),
+                'navSeasons' => array_keys($seasons),
+                'navSeasonMonths' => $seasons,
+                'navCurrentYear' => $current,
                 'navSelectedYear' => $selected,
                 'navMonths' => Season::MONTHS,
                 'navLastMonth' => Season::lastPlayableMonth($selected),
-                'navFooter' => Season::footer($selected) ?: Season::footer(Season::current()),
+                'navFooter' => Season::footer($selected) ?: Season::footer($current),
             ]);
         });
     }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', "$monthName Cup $year")
+@section('description', "Full table results of a single PokerTH Monthly Cup: first round tables and the gold, silver and bronze finals.")
 
 @section('content')
 <cup-component

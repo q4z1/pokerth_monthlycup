@@ -64,6 +64,7 @@ class Season
         Cache::forget('season.years');
         foreach ($year ? [$year] : self::years() as $y) {
             Cache::forget("season.settings.$y");
+            Cache::forget("season.months.$y");
         }
     }
 
@@ -136,6 +137,24 @@ class Season
     public static function lastPlayableMonth(int $year): int
     {
         return $year < self::current() ? 12 : (int) date('n');
+    }
+
+    /**
+     * Months of a season that actually hold results, so the navigation never
+     * offers a cup that was never played.
+     *
+     * @return array<int,int>
+     */
+    public static function monthsWithResults(int $year): array
+    {
+        return Cache::remember("season.months.$year", 3600, function () use ($year) {
+            return Upload::where('year', $year)
+                ->distinct()
+                ->orderBy('month')
+                ->pluck('month')
+                ->map(fn ($m) => (int) $m)
+                ->all();
+        });
     }
 
     public static function monthName(int $month): string

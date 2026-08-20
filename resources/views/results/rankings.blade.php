@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', "Rankings $year")
+@section('description', "Overall and per-cup ranking points of the PokerTH Monthly Cup season.")
 
 @section('content')
 <rankings-component
