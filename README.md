@@ -42,20 +42,16 @@ single set of tables carrying a `year` column:
 Award images and player avatars stay in the database as `LONGBLOB` and are
 served by `MediaController` with an ETag and a one-day cache header.
 
-### Migrating the legacy data
+### Where the data came from
 
 The application runs against **`monthlycup_laravel`**, a copy of the original
-`monthlycup` database. The original is never written to. Inside the copy the
-legacy tables are left in place, so the import can be repeated at any time:
+`monthlycup` database. Seasons 2021 to 2026 were imported into the normalised
+tables once, in August 2026; the per-year tables were dropped afterwards and
+the import command is gone with them. Empty signup rows without a playername
+(all `valid = 0`) were skipped.
 
-```bash
-php artisan migrate
-php artisan mcup:import-legacy --fresh     # all seasons
-php artisan mcup:import-legacy --year=2026 # a single season
-```
-
-Signup rows without a playername (leftover empty registrations, all
-`valid = 0`) are skipped.
+The untouched original database `monthlycup` still exists, so the import can
+be redone from the project history if it ever has to be.
 
 ### Admin passwords
 
@@ -98,7 +94,6 @@ Corrections applied to the imported legacy data on 2026-08-18:
 ## Commands
 
 ```bash
-php artisan mcup:import-legacy   # import the legacy per-year tables
 php artisan mcup:fetch-avatars   # pull the PokerTH game avatars (scheduled weekly)
 ```
 
