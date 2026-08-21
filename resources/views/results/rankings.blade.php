@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Rankings $year")
+@section('title', 'Rankings')
 @section('description', "Overall and per-cup ranking points of the PokerTH Monthly Cup season.")
 
 @section('content')

@@ -30,16 +30,22 @@ class MediaController extends Controller
     {
         $etag = '"'.md5($blob).'"';
 
-        if (trim($request->headers->get('If-None-Match', ''), 'W/') === $etag) {
-            return response('', 304);
-        }
-
-        return response($blob, 200, [
+        $headers = [
             'Content-Type' => $mime,
-            'Content-Length' => strlen($blob),
             'Cache-Control' => 'public, max-age=86400',
             'ETag' => $etag,
-        ]);
+            // These responses are pure image data and must never be treated as
+            // anything else, whatever a proxy in front of us may guess.
+            'X-Content-Type-Options' => 'nosniff',
+        ];
+
+        // A 304 has to repeat the validators, otherwise caches downgrade to a
+        // full fetch on the next request.
+        if (trim($request->headers->get('If-None-Match', ''), 'W/') === $etag) {
+            return response('', 304, $headers);
+        }
+
+        return response($blob, 200, $headers + ['Content-Length' => strlen($blob)]);
     }
 
     /** The legacy data stores bare extensions such as "jpg" instead of a mime type. */

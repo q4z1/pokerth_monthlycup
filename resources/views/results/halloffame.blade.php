@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Hall of Fame $year")
+@section('title', 'Hall of Fame')
 @section('description', "Every PokerTH Monthly Cup player who earned an award this season, with their points and awards.")
 
 @section('content')

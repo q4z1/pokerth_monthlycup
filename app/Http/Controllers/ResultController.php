@@ -36,8 +36,11 @@ class ResultController extends Controller
         foreach ($podium as $month => $rows) {
             $month = (int) $month;
             $places = [];
-            foreach ($rows as $i => $row) {
-                $type = ['gold1st', 'gold2nd', 'gold3rd'][$i] ?? null;
+            foreach ($rows as $row) {
+                // Keyed by the finishing place, not by the position in the
+                // result set: if one place is missing, the remaining awards
+                // must not shift up by one.
+                $type = [1 => 'gold1st', 2 => 'gold2nd', 3 => 'gold3rd'][$row->position] ?? null;
                 $award = $type ? ($awards[$month.'|'.$type] ?? null) : null;
                 $places[] = [
                     'position' => $row->position,

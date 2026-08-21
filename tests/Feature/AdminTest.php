@@ -244,6 +244,43 @@ class AdminTest extends TestCase
         $this->assertSame(36, Season::pointsFor($this->year, 'final', 'gold', 1));
     }
 
+    public function test_a_new_cup_appears_in_the_navigation_right_away(): void
+    {
+        // warm the cache the navigation reads, as a page view would
+        $this->assertSame([], Season::monthsWithResults($this->year));
+
+        Upload::create([
+            'year' => $this->year, 'type' => 'firstround', 'table_name' => '1',
+            'month' => 8, 'playername' => 'Someone', 'position' => 1, 'points' => 13,
+        ]);
+
+        // stale cache: without invalidation the new cup stays invisible
+        $this->assertSame([], Season::monthsWithResults($this->year));
+
+        Season::forget($this->year);
+
+        $this->assertSame([8], Season::monthsWithResults($this->year));
+    }
+
+    public function test_the_upload_endpoint_invalidates_the_season_cache(): void
+    {
+        Season::monthsWithResults($this->year);
+
+        Upload::create([
+            'year' => $this->year, 'type' => 'final', 'table_name' => 'gold',
+            'month' => 9, 'playername' => 'Someone', 'position' => 1, 'points' => 36,
+        ]);
+
+        // the endpoint refuses the duplicate table but must still drop the cache
+        $this->postJson(route('admin.upload.store'), [
+            'type' => 'final', 'month' => 9, 'table' => 'gold',
+            'url' => 'https://pokerth.net/gamelog?pdb=deadbeef&game_id=1',
+        ])->assertStatus(422);
+
+        Season::forget($this->year);
+        $this->assertContains(9, Season::monthsWithResults($this->year));
+    }
+
     public function test_an_already_uploaded_table_is_refused(): void
     {
         Upload::create([

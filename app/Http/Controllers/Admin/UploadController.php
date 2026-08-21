@@ -102,6 +102,10 @@ class UploadController extends Controller
             }
         });
 
+        // The navigation is built from the months that hold results, and that
+        // list is cached. Without this the new cup only shows up an hour later.
+        Season::forget($year);
+
         return response()->json([
             'success' => true,
             'message' => Season::monthName($data['month']).' – '.$data['type'].' table '
