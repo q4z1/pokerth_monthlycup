@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Player;
+use App\Services\AvatarBlacklist;
 use App\Services\Season;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -29,6 +30,7 @@ class FetchAvatars extends Command
         }
 
         $updated = 0;
+        $blocked = 0;
         $bar = $this->output->createProgressBar($players->count());
         $bar->start();
 
@@ -55,7 +57,23 @@ class FetchAvatars extends Command
                     continue;
                 }
 
-                $player->update(['avatar' => $image->body(), 'avatar_mime' => $mime]);
+                $blob = $image->body();
+
+                if (AvatarBlacklist::blocks(md5($blob))) {
+                    // Blacklisted at PokerTH — drop what we have instead of
+                    // refreshing it.
+                    $player->update(['avatar' => null, 'avatar_mime' => null, 'avatar_hash' => null]);
+                    $blocked++;
+                    $bar->advance();
+
+                    continue;
+                }
+
+                $player->update([
+                    'avatar' => $blob,
+                    'avatar_mime' => $mime,
+                    'avatar_hash' => md5($blob),
+                ]);
                 $updated++;
             } catch (\Throwable $e) {
                 $this->newLine();
@@ -67,7 +85,7 @@ class FetchAvatars extends Command
 
         $bar->finish();
         $this->newLine(2);
-        $this->info("Updated $updated of {$players->count()} avatars for season $year.");
+        $this->info("Updated $updated of {$players->count()} avatars for season $year.".($blocked ? " $blocked skipped as blacklisted." : ''));
 
         return self::SUCCESS;
     }
