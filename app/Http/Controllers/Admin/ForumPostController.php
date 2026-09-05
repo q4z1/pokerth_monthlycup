@@ -20,7 +20,7 @@ class ForumPostController extends Controller
     {
         $year = Season::current();
         $month = (int) $request->query('month', date('n'));
-        $config = Season::forumPostConfig($year, $month);
+        $config = $this->withDateDefault(Season::forumPostConfig($year, $month), $year, $month);
 
         [$tables, $substitutes] = $this->seedTables($year, $month, $config);
 
@@ -78,7 +78,7 @@ class ForumPostController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Table admins saved.',
-            'announcement' => ForumPostBuilder::announcement($year, $month, $config),
+            'announcement' => ForumPostBuilder::announcement($year, $month, $this->withDateDefault($config, $year, $month)),
             'seeding' => ForumPostBuilder::seeding($year, $month, $tables, $substitutes),
             'seeding_tables' => $tables,
             'seeding_substitutes' => $substitutes,
@@ -105,6 +105,26 @@ class ForumPostController extends Controller
             'seeding_tables' => $tables,
             'seeding_substitutes' => $substitutes,
         ]);
+    }
+
+    /**
+     * Fills in the cup date/time (from Admin > Settings) and the season's
+     * theme image (the same one shown on the homepage) when the admin
+     * hasn't typed something of their own. Never persisted, so a later
+     * change of either is always picked up.
+     */
+    private function withDateDefault(array $config, int $year, int $month): array
+    {
+        if ($config['cup_date_label'] === '') {
+            $date = Season::cupDate($year, $month);
+            $config['cup_date_label'] = $date ? $date->format('F jS - H:i T') : '';
+        }
+
+        if ($config['theme_image'] === '') {
+            $config['theme_image'] = asset(config('mcup.theme_image'));
+        }
+
+        return $config;
     }
 
     /**

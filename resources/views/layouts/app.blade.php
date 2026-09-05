@@ -18,7 +18,7 @@
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ asset('images/mcup_2026_theme.jpg') }}">
+    <meta property="og:image" content="{{ asset(config('mcup.theme_image')) }}">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">

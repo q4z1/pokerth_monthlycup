@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="site-hero">
-    <img src="{{ asset('images/mcup_2026_theme.jpg') }}" alt="PokerTH Monthly Cup Series {{ $year }}">
+    <img src="{{ asset(config('mcup.theme_image')) }}" alt="PokerTH Monthly Cup Series {{ $year }}">
 </div>
 
 <home-component

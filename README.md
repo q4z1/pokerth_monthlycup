@@ -65,6 +65,58 @@ Starting a new season no longer needs `cron/new_year.php`: no tables have to be
 created. Use **Admin → Settings → Start new season**, which copies the ranking
 points of the previous season and leaves the cup dates empty.
 
+## Forum posts (BBCode)
+
+**Admin → Forum posts** generates the BBCode for the four posts boehmi writes
+by hand for every cup on pokerth.net, modelled after
+https://www.pokerth.net/viewtopic.php?t=1257:
+
+1. **Announcement** — cup date, table admins and admin subs. The cup date is
+   filled in from **Admin → Settings** and the theme image from
+   `MCUP_THEME_IMAGE` (see below) whenever the field is left empty; type
+   something in to override either for just this one post.
+2. **1st round seeding** — set the number of tables and the admin of each (one
+   name per table, in table order), and **players per table** (default 9 —
+   set it to 8 on a month a table has to run with fewer seats). **Shuffle
+   again** randomises the *accepted* signups into the tables; a name that is
+   also listed as a table admin is left out of the shuffle, since that seat is
+   already taken. Anyone left over once every table is full becomes a
+   substitute. Table admins, admin subs and players-per-table are saved per
+   month, so they survive a tab switch or reload.
+3. **Final round seeding** — fully automatic once the 1st round tables have
+   been uploaded under **Admin → Upload 1st round**: every table's 1st place
+   goes to Gold, every 2nd place to Silver, every 3rd to Bronze, in table
+   order. The log-links section is built from the game log pasted in at
+   upload time (see `upload_logs` below) — nothing to type here.
+4. **Results & awards** — fully automatic from the uploaded gold final table
+   and the award images assigned under **Admin → Awards**.
+
+Every tab has a **Copy BBCode** button; paste the result straight into the
+forum's reply box.
+
+Table admins, admin subs, players-per-table and any per-post text overrides
+are stored per month as JSON in the `settings` table (type
+`forum_post_config`) — the same per-month pattern already used for cup dates
+and forum links.
+
+`upload_logs` keeps the `pdb` hash and `game_id` parsed out of the game log
+link pasted in at **Admin → Upload**, one row per uploaded table rather than
+per player, so it isn't repeated on every result row. This is what lets the
+final round seeding post quote the 1st round game logs without asking the
+admin to paste them a second time.
+
+### Season theme image
+
+The banner on the homepage, in `og:image`, and at the top of the announcement
+post all come from one place:
+
+```
+MCUP_THEME_IMAGE=images/mcup_2026_theme.jpg
+```
+
+For a new season, drop the image into `public/images/` and update this one
+`.env` value — no code change needed.
+
 ## Data integrity
 
 Two maintenance commands recompute derived data. Both report first and only

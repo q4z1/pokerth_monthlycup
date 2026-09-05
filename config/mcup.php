@@ -28,4 +28,11 @@ return [
      * a registration. Disable when that database is not reachable.
      */
     'verify_playername' => env('MCUP_VERIFY_PLAYERNAME', true),
+
+    /*
+     * Path (relative to public/) of the current season's theme image, shown on
+     * the homepage, in the og:image tag and at the top of the announcement
+     * forum post. Update this one value when a new season gets a new image.
+     */
+    'theme_image' => env('MCUP_THEME_IMAGE', 'images/mcup_2026_theme.jpg'),
 ];

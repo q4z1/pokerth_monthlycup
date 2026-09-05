@@ -36,8 +36,16 @@
             </el-form-item>
 
             <el-form-item label="Admin subs (backup table admins, not seated)">
-                <el-select v-model="form.admin_subs" multiple filterable allow-create default-first-option
-                           placeholder="playername" style="width:100%" />
+                <div style="width:100%">
+                    <div v-for="(sub, i) in form.admin_subs" :key="i"
+                         style="display:flex; gap:0.5rem; margin-bottom:0.5rem">
+                        <el-input v-model="form.admin_subs[i]" placeholder="playername" />
+                        <el-button @click="form.admin_subs.splice(i, 1)">✕</el-button>
+                    </div>
+                    <el-button @click="form.admin_subs.push('')">
+                        <el-icon><Plus /></el-icon>&nbsp;Add
+                    </el-button>
+                </div>
             </el-form-item>
 
             <h2 class="section-title">Announcement text</h2>
