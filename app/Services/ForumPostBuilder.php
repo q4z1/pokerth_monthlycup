@@ -25,11 +25,12 @@ class ForumPostBuilder
 
         $lines = [];
         if ($themeImage !== '') {
-            $lines[] = "[align=center][img]{$themeImage}[/img][/align]";
-            $lines[] = '';
+            $lines[] = "[CENTER][img]{$themeImage}[/img][/CENTER]";
+            $lines[] = '[br]';
         }
 
-        $lines[] = "[align=center][size=200][color=red]{$monthName} Cup[/color][/size] [size=150]is now open for registration[/size]";
+        $lines[] = '[CENTER]';
+        $lines[] = "[size=200][color=red]{$monthName} Cup[/color][/size] [size=150]is now open for registration[/size]";
         $lines[] = "[size=150]Scheduled cup time is [/size][size=200][color=red]{$cupDate}[/color][/size].";
         $lines[] = '';
         $lines[] = '[size=200][color=blue]Please register[/color][/size] [color=red][size=200]> '
@@ -48,11 +49,12 @@ class ForumPostBuilder
         $lines[] = 'The top 3 of each final table get an award in the [url='
             .route('results.halloffame', ['year' => $year])."]hall of fame[/url].[/size]";
         $lines[] = '';
-        $lines[] = '[list][*][size=160]Monthlycup Series ranking points are calculated [url='
-            .route('results.points', ['year' => $year])."]this way[/url].[/size][/list]";
-        $lines[] = '[list][*][size=160]Table settings are [url='.route('table-settings')."]here[/url].[/size][/list]";
+        $lines[] = '[size=160]Monthlycup Series ranking points are calculated [url='
+            .route('results.points', ['year' => $year])."]this way[/url].[/size]";
+        $lines[] = '[size=160]Table settings are [url='.route('table-settings')."]here[/url].[/size]";
         $lines[] = '';
-        $lines[] = '[color=red][size=200]Enjoy the CUP![/size][/color][/align]';
+        $lines[] = '[color=red][size=200]Enjoy the CUP![/size][/color]';
+        $lines[] = '[/CENTER]';
         $lines[] = '';
         $lines[] = "Table Admins: {$admins}";
         $lines[] = "Admin Subs: {$subs}";
@@ -154,7 +156,7 @@ class ForumPostBuilder
             3 => ['type' => 'gold3rd', 'color' => '#996633'],
         ];
 
-        $lines = ['[align=center][color=#337AB7][size=150]'.$monthName." Cup {$year} Results[/size][/color]"];
+        $lines = ['[CENTER]', '[color=#337AB7][size=150]'.$monthName." Cup {$year} Results[/size][/color]"];
 
         foreach ($places as $position => $meta) {
             $name = $podium[$position]->playername ?? '???';
@@ -180,7 +182,7 @@ class ForumPostBuilder
         $lines[] = '';
         $champion = $podium[1]->playername ?? '???';
         $lines[] = "[color=#FE0300][size=150]Congrats Champion of {$monthName} {$year}: {$champion}[/size][/color]";
-        $lines[] = '[/align]';
+        $lines[] = '[/CENTER]';
         $lines[] = '';
         $lines[] = 'Thank you to all admins - thank you to all players!';
 

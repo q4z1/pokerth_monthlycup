@@ -108,16 +108,23 @@ class ForumPostController extends Controller
     }
 
     /**
-     * Fills in the cup date/time (from Admin > Settings) and the season's
-     * theme image (the same one shown on the homepage) when the admin
-     * hasn't typed something of their own. Never persisted, so a later
-     * change of either is always picked up.
+     * Fills in the cup date/time and seeding time (from Admin > Settings) and
+     * the season's theme image (the same one shown on the homepage) when the
+     * admin hasn't typed something of their own. Never persisted, so a later
+     * change of any of them is always picked up.
      */
     private function withDateDefault(array $config, int $year, int $month): array
     {
+        $date = Season::cupDate($year, $month);
+
         if ($config['cup_date_label'] === '') {
-            $date = Season::cupDate($year, $month);
             $config['cup_date_label'] = $date ? $date->format('F jS - H:i T') : '';
+        }
+
+        if ($config['seeding_time_label'] === '') {
+            // The seeding is always run at a fixed time of day, Europe/Berlin.
+            $seedingTime = $date?->copy()->setTime(18, 30);
+            $config['seeding_time_label'] = $seedingTime ? $seedingTime->format('F jS - H:i T') : '';
         }
 
         if ($config['theme_image'] === '') {
