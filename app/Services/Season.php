@@ -161,4 +161,24 @@ class Season
     {
         return self::MONTHS[$month] ?? '';
     }
+
+    /**
+     * Table admins, backup admins and per-table capacity entered for the
+     * forum post generator, kept so the seeding tab can reuse what was
+     * entered for the announcement.
+     */
+    public static function forumPostConfig(int $year, int $month): array
+    {
+        $decoded = json_decode((string) self::get($year, 'forum_post_config'), true) ?: [];
+        $entry = $decoded[$month] ?? $decoded[(string) $month] ?? [];
+
+        return [
+            'admins' => is_array($entry['admins'] ?? null) ? array_values($entry['admins']) : [],
+            'admin_subs' => is_array($entry['admin_subs'] ?? null) ? array_values($entry['admin_subs']) : [],
+            'players_per_table' => max(1, (int) ($entry['players_per_table'] ?? 9)),
+            'theme_image' => (string) ($entry['theme_image'] ?? ''),
+            'cup_date_label' => (string) ($entry['cup_date_label'] ?? ''),
+            'seeding_time_label' => (string) ($entry['seeding_time_label'] ?? ''),
+        ];
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AwardController as AdminAwardController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ForumPostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SignupController as AdminSignupController;
 use App\Http\Controllers\Admin\UploadController;
@@ -74,6 +75,10 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('/awards/{award}', [AdminAwardController::class, 'update'])->name('awards.update');
     Route::post('/awards/{award}/assign', [AdminAwardController::class, 'assign'])->name('awards.assign');
     Route::delete('/awards/{award}', [AdminAwardController::class, 'destroy'])->name('awards.destroy');
+
+    Route::get('/forum-posts', [ForumPostController::class, 'index'])->name('forum-posts');
+    Route::post('/forum-posts/config', [ForumPostController::class, 'saveConfig'])->name('forum-posts.config');
+    Route::post('/forum-posts/shuffle', [ForumPostController::class, 'shuffle'])->name('forum-posts.shuffle');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
     Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');

@@ -7,6 +7,7 @@ use App\Models\Player;
 use App\Models\Setting;
 use App\Models\Signup;
 use App\Models\Upload;
+use App\Models\UploadLog;
 use App\Models\User;
 use App\Services\Season;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -302,5 +303,88 @@ class AdminTest extends TestCase
             'type' => 'final', 'month' => 3, 'table' => 'platinum',
             'url' => 'https://pokerth.net/gamelog?pdb=deadbeef&game_id=1',
         ])->assertStatus(422);
+    }
+
+    public function test_the_uploaded_log_link_can_be_reconstructed_from_pdb_and_game_id(): void
+    {
+        $log = UploadLog::create([
+            'year' => $this->year, 'type' => 'firstround', 'table_name' => '1',
+            'month' => 4, 'pdb' => 'deadbeef', 'game_id' => 7,
+        ]);
+
+        $this->assertSame('https://www.pokerth.net/gamelog?pdb=deadbeef&game_id=7', $log->url);
+    }
+
+    // ---------------------------------------------------------- forum posts
+
+    public function test_the_seeding_excludes_table_admins_from_the_random_pool(): void
+    {
+        $month = (int) date('n');
+        Signup::create(['year' => $this->year, 'month' => $month, 'playername' => 'Jogy', 'registered_at' => now(), 'valid' => true]);
+        Signup::create(['year' => $this->year, 'month' => $month, 'playername' => 'Player1', 'registered_at' => now(), 'valid' => true]);
+        Signup::create(['year' => $this->year, 'month' => $month, 'playername' => 'Player2', 'registered_at' => now(), 'valid' => true]);
+
+        $response = $this->postJson(route('admin.forum-posts.config'), [
+            'year' => $this->year,
+            'month' => $month,
+            'admins' => ['Jogy'],
+            'admin_subs' => ['boehmi'],
+            'players_per_table' => 1,
+            'theme_image' => '', 'cup_date_label' => '', 'seeding_time_label' => '',
+        ]);
+
+        $response->assertOk()->assertJson(['success' => true]);
+
+        $tables = $response->json('seeding_tables');
+        $this->assertCount(1, $tables);
+        $this->assertSame('Jogy', $tables[0]['admin']);
+        $this->assertNotContains('Jogy', $tables[0]['players']);
+        $this->assertContains($tables[0]['players'][0], ['Player1', 'Player2']);
+    }
+
+    public function test_the_final_seeding_groups_players_by_first_round_finishing_place(): void
+    {
+        $month = (int) date('n');
+        Upload::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '1',
+            'month' => $month, 'playername' => 'A1', 'position' => 1, 'points' => 13]);
+        Upload::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '1',
+            'month' => $month, 'playername' => 'A2', 'position' => 2, 'points' => 10]);
+        Upload::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '2',
+            'month' => $month, 'playername' => 'B1', 'position' => 1, 'points' => 13]);
+        Upload::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '2',
+            'month' => $month, 'playername' => 'B2', 'position' => 2, 'points' => 10]);
+        UploadLog::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '1', 'month' => $month, 'pdb' => 'abc', 'game_id' => 1]);
+        UploadLog::create(['year' => $this->year, 'type' => 'firstround', 'table_name' => '2', 'month' => $month, 'pdb' => 'def', 'game_id' => 1]);
+
+        $response = $this->get(route('admin.forum-posts', ['month' => $month]));
+
+        $response->assertOk();
+        $bbcode = $response->viewData('finalSeeding');
+
+        $goldPos = strpos($bbcode, 'Gold Table');
+        $silverPos = strpos($bbcode, 'Silver Table');
+        $a1Pos = strpos($bbcode, 'A1');
+        $b1Pos = strpos($bbcode, 'B1');
+        $a2Pos = strpos($bbcode, 'A2');
+
+        $this->assertTrue($goldPos < $a1Pos && $a1Pos < $silverPos, 'A1 (1st place) should be in the Gold table');
+        $this->assertTrue($goldPos < $b1Pos && $b1Pos < $silverPos, 'B1 (1st place) should be in the Gold table');
+        $this->assertTrue($silverPos < $a2Pos, 'A2 (2nd place) should be in the Silver table');
+        $this->assertStringContainsString('Table 1: https://www.pokerth.net/gamelog?pdb=abc&game_id=1', $bbcode);
+    }
+
+    public function test_the_results_post_names_the_champion(): void
+    {
+        $month = (int) date('n');
+        Upload::create(['year' => $this->year, 'type' => 'final', 'table_name' => 'gold',
+            'month' => $month, 'playername' => 'Winner', 'position' => 1, 'points' => 36]);
+        Upload::create(['year' => $this->year, 'type' => 'final', 'table_name' => 'gold',
+            'month' => $month, 'playername' => 'Second', 'position' => 2, 'points' => 26]);
+
+        $response = $this->get(route('admin.forum-posts', ['month' => $month]));
+
+        $response->assertOk();
+        $this->assertStringContainsString('Congrats Champion of', $response->viewData('results'));
+        $this->assertStringContainsString('Winner', $response->viewData('results'));
     }
 }

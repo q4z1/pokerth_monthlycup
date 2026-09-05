@@ -15,6 +15,7 @@
         ['label' => 'Awards', 'url' => route('admin.awards'), 'icon' => 'Medal'],
         ['label' => 'Signups', 'url' => route('admin.signups'), 'icon' => 'UserFilled'],
         ['label' => 'Randomizer', 'url' => route('admin.randomizer'), 'icon' => 'Sort'],
+        ['label' => 'Forum posts', 'url' => route('admin.forum-posts'), 'icon' => 'Files'],
         ['label' => 'Settings', 'url' => route('admin.settings'), 'icon' => 'Setting'],
     ]) }}"
 ></admin-dashboard-component>

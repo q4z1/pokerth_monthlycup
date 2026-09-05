@@ -28,6 +28,7 @@ import { ElOption, ElSelect } from 'element-plus/es/components/select/index';
 import { ElSpace } from 'element-plus/es/components/space/index';
 import { ElStatistic } from 'element-plus/es/components/statistic/index';
 import { ElTable, ElTableColumn } from 'element-plus/es/components/table/index';
+import { ElTabs, ElTabPane } from 'element-plus/es/components/tabs/index';
 import { ElTag } from 'element-plus/es/components/tag/index';
 import { ElTooltip } from 'element-plus/es/components/tooltip/index';
 
@@ -56,7 +57,7 @@ const elementComponents = [
     ElDropdown, ElDropdownItem, ElDropdownMenu, ElEmpty, ElForm, ElFormItem,
     ElIcon, ElInput, ElInputNumber, ElLink, ElMenu, ElMenuItem, ElOption,
     ElRow, ElSelect, ElSpace, ElStatistic, ElSubMenu, ElTable, ElTableColumn,
-    ElTag, ElTooltip,
+    ElTabs, ElTabPane, ElTag, ElTooltip,
 ];
 
 const icons = {

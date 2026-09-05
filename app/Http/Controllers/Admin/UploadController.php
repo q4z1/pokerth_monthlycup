@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Player;
 use App\Models\Upload;
+use App\Models\UploadLog;
 use App\Services\LogParser;
 use App\Services\Season;
 use Illuminate\Http\Request;
@@ -85,8 +86,9 @@ class UploadController extends Controller
         }
 
         $rows = $this->rows($year, $data, $players);
+        [$pdb, $gameId] = $this->logReference($data['url']);
 
-        DB::transaction(function () use ($year, $data, $rows) {
+        DB::transaction(function () use ($year, $data, $rows, $pdb, $gameId) {
             foreach ($rows as $row) {
                 Player::firstOrCreate(['year' => $year, 'playername' => $row['playername']]);
 
@@ -99,6 +101,13 @@ class UploadController extends Controller
                     'position' => $row['position'],
                     'points' => $row['points'],
                 ]);
+            }
+
+            if ($pdb && $gameId) {
+                UploadLog::updateOrCreate(
+                    ['year' => $year, 'type' => $data['type'], 'table_name' => $data['table'], 'month' => $data['month']],
+                    ['pdb' => $pdb, 'game_id' => $gameId]
+                );
             }
         });
 
@@ -131,6 +140,17 @@ class UploadController extends Controller
         $data['month'] = (int) $data['month'];
 
         return $data;
+    }
+
+    /** @return array{0:?string,1:?int} the pdb hash and game id parsed back out of the log link */
+    private function logReference(string $url): array
+    {
+        parse_str((string) parse_url($url, PHP_URL_QUERY), $query);
+
+        $pdb = preg_replace('/[^A-Za-z0-9_-]/', '', $query['pdb'] ?? '');
+        $gameId = $query['game_id'] ?? null;
+
+        return [$pdb !== '' ? $pdb : null, is_numeric($gameId) ? (int) $gameId : null];
     }
 
     /** @return array<int,string>|string the finishing order, or an error message */

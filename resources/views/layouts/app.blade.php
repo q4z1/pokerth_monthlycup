@@ -77,6 +77,7 @@
                         <el-menu-item index="admin-awards"><a href="{{ route('admin.awards') }}">Awards</a></el-menu-item>
                         <el-menu-item index="admin-signups"><a href="{{ route('admin.signups') }}">Signups</a></el-menu-item>
                         <el-menu-item index="admin-random"><a href="{{ route('admin.randomizer') }}">Randomizer</a></el-menu-item>
+                        <el-menu-item index="admin-forum-posts"><a href="{{ route('admin.forum-posts') }}">Forum posts</a></el-menu-item>
                         <el-menu-item index="admin-settings"><a href="{{ route('admin.settings') }}">Settings</a></el-menu-item>
                     </el-sub-menu>
                     @endauth
