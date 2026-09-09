@@ -1,0 +1,28 @@
+# Dependabot-Konfiguration fuer q4z1/pokerth_monthlycup
+#
+# Angelegt am 2026-09-09 zusammen mit denen der Schwester-Repos. Hier gab es
+# nichts zu reparieren: master ist Default- und Produktiv-Branch zugleich,
+# "npm audit" und "composer audit" meldeten am 2026-09-09 beide nichts, und
+# offene PRs gab es keine. Die Datei haelt den Zustand nur fest und sorgt
+# dafuer, dass kuenftige Updates gebuendelt statt einzeln hereinkommen.
+
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      npm-dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      composer-dependencies:
+        patterns: ["*"]
