@@ -10,7 +10,7 @@
         "@vitejs/plugin-vue": "^6.0",
         "laravel-vite-plugin": "^3.2",
         "sass": "^1.104",
-        "vite": "^8.2"
+        "vite": "^8.3"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3",
