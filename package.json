@@ -9,12 +9,12 @@
     "devDependencies": {
         "@vitejs/plugin-vue": "^6.0",
         "laravel-vite-plugin": "^3.2",
-        "sass": "^1.104",
-        "vite": "^8.2"
+        "sass": "^1.107",
+        "vite": "^8.3"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3",
-        "axios": "^1.20",
+        "axios": "^1.21",
         "element-plus": "^2.14",
         "vue": "^3.5"
     }
